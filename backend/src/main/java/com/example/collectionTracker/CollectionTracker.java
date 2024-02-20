@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CollectionTrackerApplication {
+public class CollectionTracker {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CollectionTrackerApplication.class, args);
+		SpringApplication.run(CollectionTracker.class, args);
 	}
 
 }
