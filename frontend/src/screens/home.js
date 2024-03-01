@@ -1,7 +1,7 @@
-// home.js
+// Home.js
 
 import React, { useState } from 'react';
-import './home.css';
+import './Home.css';
 
 function Home() {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -49,18 +49,14 @@ function Home() {
                     <div className="sidebar-section">
                         <h2>Marketplace</h2>
                     </div>
-                    <div className="sidebar-section">
+                    <div className="sidebar-section search-bar">
                         <input type="text" placeholder="Search Marketplace" />
-                        <button>Search</button>
                     </div>
                 </aside>
                 <section id="listings">
                     <h2>Listings</h2>
                 </section>
             </main>
-            <footer className="footer">
-                <p>&copy; 2024 CollectionTracker </p>
-            </footer>
         </div>
     );
 }

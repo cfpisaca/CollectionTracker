@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 // import createAcc from './screens/createAcc';
-// import home from './screens/home;
+// import home from './screens/home
 
 function App() {
   return (
