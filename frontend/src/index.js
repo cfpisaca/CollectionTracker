@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './home';
-import Register from './screens/register'
+import CreateAcc from './screens/createAcc'
 
 import reportWebVitals from './reportWebVitals';
 import {
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
     element: <Home/>,
   },
   {
-    path: "register",
-    element: <Register/>,
+    path: "create",
+    element: <CreateAcc/>,
   }
 ]);
 
