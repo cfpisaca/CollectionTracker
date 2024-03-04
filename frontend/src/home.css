@@ -1,4 +1,4 @@
-body, h1, h2, p, input, button {
+body, h1, h2 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -21,19 +21,8 @@ body, h1, h2, p, input, button {
   z-index: 2; 
 }
 
-.title-section {
-  display: flex;
-  align-items: center;
-}
-
 .header h1 {
   color: #fff;
-}
-
-.user-login {
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
 }
 
 .user-login input {
@@ -118,7 +107,7 @@ body, h1, h2, p, input, button {
   color: #fff;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 950px) {
   .user-login input[name="username"],
   .user-login input[name="password"],
   .user-login button {
@@ -130,4 +119,24 @@ body, h1, h2, p, input, button {
   }
 }
 
+@media only screen and (max-width: 900px) {
+  .sidebar {
+    width: 100%; 
+  }
 
+  .sidebar h2 {
+    display: none; 
+  }
+
+  .search-bar {
+    width: 99%; 
+  }
+
+  .main-content {
+    flex-direction: column; 
+  }
+
+  #listings {
+    order: 2;
+  }
+}
