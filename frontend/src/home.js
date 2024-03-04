@@ -1,10 +1,13 @@
 // Home.js
 
 import React, { useState } from 'react';
-import './Home.css';
+import './home.css';
 
 function Home() {
-    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    const [credentials, setCredentials] = useState({ 
+        username: '', 
+        password: '' 
+    });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

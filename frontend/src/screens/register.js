@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function createAcc() {
+function Register() {
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
@@ -96,4 +96,4 @@ function createAcc() {
     );
 }
 
-export default createAcc;
+export default Register;
