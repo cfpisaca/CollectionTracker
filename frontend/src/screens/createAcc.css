@@ -1,0 +1,44 @@
+/* Form container */
+.form-container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+/* Form input fields */
+.form-input {
+    width: 100%;
+    margin-bottom:15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Gender dropdown */
+.form-input select {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Submit button */
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Error message */
+.error-message {
+    color: #dc3545
+}

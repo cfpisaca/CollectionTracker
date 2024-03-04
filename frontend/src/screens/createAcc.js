@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './createAcc.css'; // Import CSS file
 
 function CreateAcc() {
     const [formData, setFormData] = useState({
