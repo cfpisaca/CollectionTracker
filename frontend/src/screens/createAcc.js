@@ -11,6 +11,8 @@ function CreateAcc() {
         birthdate: '',
         gender: '',
     });
+    
+    const [formErrors, setFormErrors] = useState([]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +24,7 @@ function CreateAcc() {
         if (!formData.firstname || !formData.lastname || !formData.username || 
             !formData.emailOrMobile || !formData.password || !formData.birthdate || 
             !formData.gender) {
-            alert('Please fill out all fields. ');
+            setFormErrors({ message: 'Please fill out all fields'});
             return;
         }
         // Send registration to the backend
@@ -92,6 +94,7 @@ function CreateAcc() {
                 <option value="other">Other</option>
             </select>
             <button type="submit">Sign Up</button>
+            {formErrors.message && <p>{formErrors.message}</p>}
         </form>
     );
 }
