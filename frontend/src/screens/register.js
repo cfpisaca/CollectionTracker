@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './createAcc.css'; // Import CSS file
+import './register.css'; // Import CSS file
 
-function CreateAcc() {
+function Register() {
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
@@ -100,4 +100,4 @@ function CreateAcc() {
     );
 }
 
-export default CreateAcc;
+export default Register;

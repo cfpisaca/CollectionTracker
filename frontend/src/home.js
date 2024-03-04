@@ -1,6 +1,6 @@
-// Home.js
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import searchIcon from './searchIcon.svg';
 import './home.css';
 
 function Home() {
@@ -16,10 +16,6 @@ function Home() {
 
     const handleLogin = () => {
         alert(`Log in with Username: ${credentials.username} and Password: ${credentials.password}`);
-    };
-
-    const handleRegister = () => {
-        alert('Redirect to Register Page');
     };
 
     return (
@@ -44,7 +40,9 @@ function Home() {
                         onChange={handleInputChange}
                     />
                     <button onClick={handleLogin}>Log In</button>
-                    <button className="register-button" onClick={handleRegister}>Register</button>
+                    <button className="register-button">
+                        <Link to="/register" className="register-link">Register</Link>
+                    </button>
                 </div>
             </header>
             <main className="main-content">
@@ -53,7 +51,10 @@ function Home() {
                         <h2>Marketplace</h2>
                     </div>
                     <div className="sidebar-section search-bar">
-                        <input type="text" placeholder="Search Marketplace" />
+                        <div className="search-bar">
+                            <input type="text" placeholder="Search Marketplace" className="search-input" />
+                            <img src={searchIcon} className="search-icon" alt="Search Icon" />
+                        </div>
                     </div>
                 </aside>
                 <section id="listings">
