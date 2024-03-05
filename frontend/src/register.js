@@ -41,62 +41,65 @@ function Register() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="firstname"
-                placeholder="First Name"
-                value={formData.firstname}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="lastname"
-                placeholder="Last Name"
-                value={formData.lastname}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="emailOrMobile"
-                placeholder="Email or Mobile Number"
-                value={formData.emailOrMobile}
-                onChange={handleChange}
-            />
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-            />
-            <input
-                type="date"
-                name="birthdate"
-                placeholder="Birthdate"
-                value={formData.birthdate}
-                onChange={handleChange}
-            />
-            <select
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-            >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="other">Other</option>
-            </select>
-            <button type="submit">Sign Up</button>
-            {formErrors.message && <p>{formErrors.message}</p>}
-        </form>
+        <div>
+            <h1>Collection Tracker</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="firstname"
+                    placeholder="First Name"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="lastname"
+                    placeholder="Last Name"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={formData.username}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="emailOrMobile"
+                    placeholder="Email or Mobile Number"
+                    value={formData.emailOrMobile}
+                    onChange={handleChange}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                />
+                <input
+                    type="date"
+                    name="birthdate"
+                    placeholder="Birthdate"
+                    value={formData.birthdate}
+                    onChange={handleChange}
+                />
+                <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <button type="submit">Sign Up</button>
+                {formErrors.message && <p>{formErrors.message}</p>}
+            </form>
+        </div>
     );
 }
 

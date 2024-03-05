@@ -1,44 +1,52 @@
-/* Form container */
-.form-container {
-    width: 400px;
-    margin: 0 auto;
+/* Container styles */
+div {
+    text-align: center;
+    margin-top: 50px;
 }
 
-/* Form input fields */
-.form-input {
-    width: 100%;
-    margin-bottom:15px;
+/* Header */
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*width: 300px;
+    margin: 0 auto;*/
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 300px;
     padding: 10px;
+    margin: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-/* Gender dropdown */
-.form-input select {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+select {
+    width: 316px;
 }
 
-/* Submit button */
-.submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 
-.submit-button:hover {
-    background-color: #0056b3;
+button[type="submit"]:hover {
+    background-color: #45a049;
 }
 
-/* Error message */
-.error-message {
-    color: #dc3545
+p {
+    color: red;
+    margin-top: 10px;
 }
