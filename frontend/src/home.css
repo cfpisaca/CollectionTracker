@@ -34,8 +34,10 @@ body, h1, h2 {
 }
 
 .register-button,
-.user-login button {
-  background-color: #0a64a0;
+.user-login button,
+.user-buttons button,
+.your-account button {
+  background-color: #266d9d;
   color: #fff;
   padding: 8px 12px;
   border: none;
@@ -47,8 +49,16 @@ body, h1, h2 {
 }
 
 .register-button:hover,
-.user-login button:hover {
+.user-login button:hover,
+.user-buttons button:hover,
+.your-account button:hover {
   background-color: #08507f;
+}
+
+.register-link,
+.your-account-link {
+  text-decoration: none;
+  color: #000; /* Change to black or your desired text color */
 }
 
 .main-content {
@@ -102,19 +112,70 @@ body, h1, h2 {
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); 
 }
 
-.register-link {
+.your-account-link {
+  font-size: 15px;
+}
+
+.your-account button {
+  background-color: #ededed;
+  color: #000; 
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 5px 2px;
   text-decoration: none;
+  display: flex; 
+  align-items: center; 
+  border-radius: 5px;
+  width: 350px;
+  height: 50px;
+}
+
+.profile-icon {
+  height: 40px; 
+  width: 37px; 
+  margin-right: 10px;
+}
+
+.your-account button:hover {
+  background-color: #dcdcdc;
+}
+
+.create-listing-link {
+  text-decoration: none;
+  color: #0a64a0;
+  font-size: 14px;
+}
+
+.create-listing button {
+  background-color: #3498db3d;
   color: #fff;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 2px 2px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  width: 350px;
+  height: 35px;
+}
+
+.create-listing button:hover {
+  background-color: #3498db6d;
 }
 
 @media only screen and (max-width: 950px) {
   .user-login input[name="username"],
   .user-login input[name="password"],
-  .user-login button {
+  .user-login button,
+  .user-buttons button {
     display: none;
   }
 
-  .user-login .register-button {
+  .user-login .register-button,
+  .user-buttons .your-account-button,
+  .user-buttons .create-listing-button {
     display: inline-block;
   }
 }
@@ -138,5 +199,13 @@ body, h1, h2 {
 
   #listings {
     order: 2;
+  }
+
+  .create-listing {
+    display: none;
+  }
+
+  .your-account {
+    display: none;
   }
 }
