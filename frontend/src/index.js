@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './home';
-import Register from './screens/register';
+import Register from './register';
+import User from './user';
 
 import reportWebVitals from './reportWebVitals';
 import {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register/>,
+  },
+  {
+    path: "user",
+    element: <User/>,
   }
 ]);
 
