@@ -41,7 +41,7 @@ function Register() {
     }
 
     return (
-        <div>
+        <div className="register-form">
             <h1>Collection Tracker</h1>
             <form onSubmit={handleSubmit}>
                 <input
