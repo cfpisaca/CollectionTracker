@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './home';
-import Register from './register';
-import User from './user';
+import Register from './components/register';
+import User from './components/user';
 
 import reportWebVitals from './reportWebVitals';
 import {
