@@ -73,7 +73,7 @@ body {
 }
 
 .register-form button[type="submit"] {
-    background-color: #266d9d; 
+    background-color: #45b71f; 
     color: white;
     padding: 12px 24px;
     border: none;
@@ -86,7 +86,7 @@ body {
 }
 
 .register-form button[type="submit"]:hover {
-    background-color: #266d9d;
+    background-color: #3b9a1b;
 }
 
 .register-form p {
