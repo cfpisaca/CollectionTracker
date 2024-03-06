@@ -182,41 +182,38 @@ body, h1, h2 {
 
 @media only screen and (max-width: 900px) {
   .sidebar {
-    width: 100%; 
+    width: 100%;
   }
 
   .sidebar h2 {
-    display: none; 
+    display: none;
   }
 
   .search-bar {
-    width: 98.75%; 
+    width: 98.75%;
   }
 
   .main-content {
-    flex-direction: column; 
+    flex-direction: column;
   }
 
   #listings {
     order: 2;
   }
 
-  .create-listing {
-    margin-left: 355px;
-    margin-top: -42.5px;
-  }
-
   .create-listing button {
-    width: 93%;
+    width: 96.75%;
   }
 
   .your-account button {
     height: 36px;
+    width: 96.75%; 
   }
 
   .profile-icon {
-    height: 25px; 
-    width: 23px; 
+    height: 25px;
+    width: 23px;
     margin-right: 10px;
   }
 }
+
