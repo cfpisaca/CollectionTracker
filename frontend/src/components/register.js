@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './register.css'; // Import CSS file
 
 function Register() {
@@ -115,6 +116,10 @@ function Register() {
                         <option value="other">Other</option>
                     </select>
                     <button type="submit">Sign Up</button>
+                    {/* Already have an account link */}
+                    <div className="have-account">
+                        <p><Link to="/">Already have an account? </Link></p>
+                    </div>
                 </form>
                 {/* Error message */}
                 {formErrors.length > 0 && (
