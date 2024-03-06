@@ -9,7 +9,7 @@
     font-size: 42px;
     margin-bottom: 20px;
     box-sizing: border-box;
-    background-color: #3498db;
+    background-color: #318bc6;
     padding: 10px;
     text-align: center;
     z-index: 2;
@@ -41,7 +41,7 @@
 .register-form input[type="date"]:focus,
 .register-form select:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #318bc6;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 
@@ -50,7 +50,7 @@
 }
 
 .register-form button[type="submit"] {
-    background-color: #3498db;
+    background-color: #318bc6;
     color: white;
     padding: 12px 24px;
     border: none;
@@ -97,7 +97,7 @@
 }
 
 .modal button {
-    background-color: #3498db;
+    background-color: #318bc6;
     color: white;
     padding: 10px 20px;
     border: none;
