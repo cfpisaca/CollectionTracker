@@ -22,10 +22,14 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Basic form validation
+        const errors = [];
         if (!formData.firstname || !formData.lastname || !formData.username || 
             !formData.emailOrMobile || !formData.password || !formData.birthdate || 
             !formData.gender) {
-            setFormErrors({ message: 'Please fill out all fields'});
+            errors.push('Please fill out all fields');
+        }
+        if (errors.length > 0) {
+            setFormErrors(errors);
             return;
         }
         // Send registration to the backend
@@ -37,8 +41,13 @@ function Register() {
             .catch((error) => {
                 console.error('Registration failed:', error);
                 // Display error message to the user
+                setFormErrors('Registration failed. Please try again later.');
             });
     }
+
+    const handleDismissError = () => {
+        setFormErrors([]);
+    };
 
     return (
         <div className="register-form">
@@ -97,8 +106,16 @@ function Register() {
                     <option value="other">Other</option>
                 </select>
                 <button type="submit">Sign Up</button>
-                {formErrors.message && <p>{formErrors.message}</p>}
             </form>
+            {/* Error message */}
+            {formErrors.length > 0 && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <p>{formErrors[0]}</p>
+                        <button onClick={handleDismissError}>OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
