@@ -12,7 +12,7 @@ function Register() {
         birthdate: '',
         gender: '',
     });
-    
+
     const [formErrors, setFormErrors] = useState([]);
 
     const handleChange = (e) => {
@@ -23,9 +23,15 @@ function Register() {
         e.preventDefault();
         // Basic form validation
         const errors = [];
-        if (!formData.firstname || !formData.lastname || !formData.username || 
-            !formData.emailOrMobile || !formData.password || !formData.birthdate || 
-            !formData.gender) {
+        if (
+            !formData.firstname ||
+            !formData.lastname ||
+            !formData.username ||
+            !formData.emailOrMobile ||
+            !formData.password ||
+            !formData.birthdate ||
+            !formData.gender
+        ) {
             errors.push('Please fill out all fields');
         }
         if (errors.length > 0) {
@@ -33,7 +39,8 @@ function Register() {
             return;
         }
         // Send registration to the backend
-        axios.post('/api/register', formData)
+        axios
+            .post('/api/register', formData)
             .then((response) => {
                 console.log(response.data);
                 // Redirect or show success message
@@ -43,7 +50,7 @@ function Register() {
                 // Display error message to the user
                 setFormErrors('Registration failed. Please try again later.');
             });
-    }
+    };
 
     const handleDismissError = () => {
         setFormErrors([]);
@@ -51,22 +58,26 @@ function Register() {
 
     return (
         <div className="register-form">
-            <h1>Collection Tracker</h1>
+            <h1>CollectionTracker</h1>
             <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="firstname"
-                    placeholder="First Name"
-                    value={formData.firstname}
-                    onChange={handleChange}
-                />
-                <input
-                    type="text"
-                    name="lastname"
-                    placeholder="Last Name"
-                    value={formData.lastname}
-                    onChange={handleChange}
-                />
+            <h2>Create a new account</h2>
+            <hr className="divider" />
+                <div className="name-fields">
+                    <input
+                        type="text"
+                        name="firstname"
+                        placeholder="First Name"
+                        value={formData.firstname}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        name="lastname"
+                        placeholder="Last Name"
+                        value={formData.lastname}
+                        onChange={handleChange}
+                    />
+                </div>
                 <input
                     type="text"
                     name="username"
@@ -77,29 +88,26 @@ function Register() {
                 <input
                     type="text"
                     name="emailOrMobile"
-                    placeholder="Email or Mobile Number"
+                    placeholder="Mobile number or email"
                     value={formData.emailOrMobile}
                     onChange={handleChange}
                 />
                 <input
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="New password"
                     value={formData.password}
                     onChange={handleChange}
                 />
+                <label htmlFor="birthdate">Date of Birth</label>
                 <input
                     type="date"
                     name="birthdate"
-                    placeholder="Birthdate"
                     value={formData.birthdate}
                     onChange={handleChange}
                 />
-                <select
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
-                >
+                <label htmlFor="gender">Gender</label>
+                <select name="gender" value={formData.gender} onChange={handleChange}>
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
