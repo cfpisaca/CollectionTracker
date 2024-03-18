@@ -31,7 +31,7 @@ function Home() {
         <div className="Home">
             <header className="header">
                 <div className="title-section">
-                    <h1>Collection Tracker</h1>
+                    <h1>CollectionTracker</h1>
                 </div>
                 <div className="user-actions">
                     <div className="user-login">
