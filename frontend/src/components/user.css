@@ -4,23 +4,23 @@
 
   
   /* Setting font and background color */
-  /* body {
+  body {
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
     margin: 0;
     padding: 0;
-  } */
+  }
   
   /* Styling the sidebar */
-  .sidebar1 {
+    .sidebar1 {
     position: fixed;
     top: 0;
     left: 0;
     width: 200px; /* Adjust width as needed  */
     height: 100%;
-    background-color: #f0f2f5;
+    background-color: #e6edf7;
     padding: 20px;
-  }
+  } 
   
   /* Styling the sidebar buttons */
   .sidebar1-button {
@@ -49,6 +49,13 @@
   .App1-header {
     text-align: center;
     margin-bottom: 20px;
+    background-color: #318bc6;
+    color: #fff; 
+    position: relative; 
+    top: 0;
+    z-index: 3;
+
+   
   }
   
   /* Styling the search bar */
@@ -59,6 +66,7 @@
     background-color: #f0f2f5;
     padding: 10px;
     margin-bottom: 20px;
+    
   }
   
   .search1-bar input {
@@ -79,6 +87,7 @@
   
   .search1-bar button:hover {
     background-color: #4a91ee;
+
   }
   
   /* Styling the Your Listings heading */

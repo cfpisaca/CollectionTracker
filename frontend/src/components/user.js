@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <div className="body">
-      {/* Sidebar */}
+      {/* { Sidebar } */}
       <div className="sidebar1">
         <a href="#" className="sidebar1-button">Create Listing</a>
         <a href="#" className="sidebar1-button">Your Listings</a>
