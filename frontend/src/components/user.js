@@ -22,7 +22,7 @@ function User() {
                 </div>
             </header>
             <main className="main-content">
-                <aside className="sidebar">
+                <aside className="sidebar-user">
                     <div className="sidebar-section">
                         <h2>Marketplace</h2>
                     </div>
@@ -47,9 +47,11 @@ function User() {
                 </aside>
                 <section id="listings">
                   <div className="sidebar3-section">
+                    <div className="sidebar3-header">
                         <h2>Your listings</h2>
+                    </div>
                         <div className="search-bar-user">
-                            <input type="text" placeholder="Search Marketplace" className="search-input" />
+                            <input type="text" placeholder="Search listings" className="search-input" />
                             <img src={searchIcon} className="search-icon" alt="Search Icon" />
                         </div>
                     </div>

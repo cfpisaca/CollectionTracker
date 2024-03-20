@@ -102,6 +102,15 @@ body, h1, h2 {
   justify-content: space-between;
 }
 
+.sidebar-user {
+  background-color: #fff;
+  width: 350px;
+  padding: 10px;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2); 
+  position: relative;
+  z-index: 3;
+}
+
 .sidebar2 {
   width: 350px;
   background-color: #ededed; 
@@ -115,6 +124,7 @@ body, h1, h2 {
   align-items: center;
   position: relative;
   width: 350px;
+  min-width: 350px;
 }
 
 .sidebar2-section {
@@ -197,4 +207,39 @@ body, h1, h2 {
   align-items: center;
   margin-top: -6px;
   font-size: 15px;
+}
+
+@media only screen and (max-width: 1300px) {
+  .sidebar2-section {
+    display: none;
+  }
+
+  .sidebar2 {
+    display: none;
+  }
+
+  .sidebar3-section {
+    width: 94.75%;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .sidebar3-header {
+    color: #fff;
+  }
+
+  .search-bar-user {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .sidebar-user {
+    display: none;
+  }
+
+  .sidebar3-header {
+    color: #000000;
+    height: 70px;
+  }
 }
