@@ -1,106 +1,193 @@
-/* user.css */
+body, h1, h2 {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* Setting box-sizing to border-box for easier layout */
+.User {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
 
-  
-  /* Setting font and background color */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Styling the sidebar */
-    .sidebar1 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px; /* Adjust width as needed  */
-    height: 100%;
-    background-color: #e6edf7;
-    padding: 20px;
-  } 
-  
-  /* Styling the sidebar buttons */
-  .sidebar1-button {
-    display: block;
-    width: 100%;
-    padding: 10px 0;
-    margin-bottom: 10px;
-    background-color: #318bc6;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-  } 
-  
-  .sidebar1-button:hover {
-    background-color: #318bc6;
-  }
-  
-  /* Styling the main content area */
-  .main1-content {
-    margin-left: 220px; /* Adjust to accommodate sidebar width */
-    padding: 20px;
-  }
-  
-  /* Styling the header */
-  .App1-header {
-    text-align: center;
-    margin-bottom: 20px;
-    background-color: #318bc6;
-    color: #fff; 
-    position: relative; 
-    top: 0;
-    z-index: 3;
+.header {
+  background-color: #318bc6;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
 
-   
-  }
-  
-  /* Styling the search bar */
-  .search1-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f2f5;
-    padding: 10px;
-    margin-bottom: 20px;
-    
-  }
-  
-  .search1-bar input {
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  .search1-bar button {
-    background-color: #318bc6;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .search1-bar button:hover {
-    background-color: #4a91ee;
+.header h1 {
+  color: #fff;
+}
 
-  }
-  
-  /* Styling the Your Listings heading */
-  .your-listings-heading {
-    background-color: #318bc6;
-    color: #318bc6;
-    padding: 10px 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  /* Styling the items list */
-  
-  
-  
-  
+.user-actions {
+  display: flex;
+}
+
+.your-marketplace button {
+  background-color: #fff;
+  color: #000;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 5px 2px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  height: 50px;
+}
+
+.manage-listings-button {
+  background-color: #ededed;
+  color: #000;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 3px 2px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  height: 35px;
+  width: 350px;
+  display: inline-block;
+}
+
+.user-actions .create-listing button,
+.user-actions .manage-listings-button {
+  background-color: #3498db3d;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 2px 2px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.profile-icon {
+  height: 40px;
+  width: 37px;
+  margin-right: 10px;
+}
+
+.your-marketplace button:hover,
+.manage-listings-button:hover {
+  background-color: #dcdcdc;
+}
+
+.create-listing-link {
+  text-decoration: none;
+  color: #0a64a0;
+  font-size: 14px;
+}
+
+.create-listing-button {
+  width: 200px;
+}
+
+.create-listing-button:hover {
+  background-color: #3498db6d;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar2 {
+  width: 350px;
+  background-color: #ededed; 
+  padding: 10px;
+}
+
+.search-bar {
+  margin-left: auto;
+  margin-top: -30px; /* Adjust this value according to your layout */
+}
+
+.sidebar2-section {
+  background-color: #fff;
+  margin-left: -8px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar3-section {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar2-section h3 {
+  margin-bottom: 15px;
+  margin-top: -10px; 
+  margin-left: -5px;
+  font-size: 18px;
+  color: #333;
+}
+
+.sidebar2-section .create-listing-button {
+  background-color: #3498db3d; 
+  color: #fff; 
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 5px 2px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  height: 35px; 
+  width: 100%; 
+  margin-top: 10px;
+}
+
+.sidebar2-section .see-marketplace-button {
+  background-color: #ededed; 
+  color: #000000; 
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 5px 2px; 
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  height: 35px;
+  width: 100%; 
+}
+
+.sidebar2-section .create-listing-button:hover {
+  background-color: #3498db6d; 
+}
+
+.sidebar2-section .see-marketplace-button:hover {
+  background-color: #dcdcdc; 
+}
+
+.sidebar2-section button {
+  margin-top: 15px;
+}
+
+.sidebar2-section .profile-icon {
+  height: 50px; 
+  width: 47px; 
+  margin-right: 10px;
+}
+
+.sidebar2-section .user-profile {
+  display: flex;
+  align-items: center;
+  margin-top: -6px;
+  font-size: 15px;
+}
