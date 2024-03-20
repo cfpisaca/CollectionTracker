@@ -18,7 +18,7 @@ function User() {
         <div className="User">
             <header className="header">
                 <div className="title-section">
-                    <h1>Collection Tracker</h1>
+                    <h1>CollectionTracker</h1>
                 </div>
             </header>
             <main className="main-content">
