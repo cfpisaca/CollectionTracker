@@ -48,7 +48,7 @@ function User() {
                 <section id="listings">
                   <div className="sidebar3-section">
                         <h2>Your listings</h2>
-                        <div className="search-bar">
+                        <div className="search-bar-user">
                             <input type="text" placeholder="Search Marketplace" className="search-input" />
                             <img src={searchIcon} className="search-icon" alt="Search Icon" />
                         </div>
