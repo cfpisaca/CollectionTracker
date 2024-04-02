@@ -149,7 +149,7 @@ body, h1, h2 {
 
 .create-listing button {
   background-color: #3498db3d;
-  color: #fff;
+  color: #0a64a0;
   padding: 8px 12px;
   border: none;
   cursor: pointer;
@@ -164,6 +164,23 @@ body, h1, h2 {
 .create-listing button:hover {
   background-color: #3498db6d;
 }
+
+.logout-button {
+  background-color: #266d9d;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  margin: 2px 2px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.logout-button:hover {
+  background-color: #08507f;
+}
+
 
 @media only screen and (max-width: 950px) {
   .user-login input[name="username"],
@@ -216,4 +233,3 @@ body, h1, h2 {
     margin-right: 10px;
   }
 }
-
