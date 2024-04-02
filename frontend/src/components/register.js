@@ -53,7 +53,7 @@ function Register() {
 
         // Send registration to the backend
         axios
-            .post('http://localhost:3000/register', formData)
+            .post('localhost:3000/register', formData)
             .then((response) => {
                 console.log(response.data);
                 setFormErrors([]); // Clears previous error messages
