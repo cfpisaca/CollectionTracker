@@ -44,7 +44,7 @@ function Home() {
     const handleYourCreateNewListing = () => {
         if (loggedIn) {
             // Redirect to create listing page if logged in
-            window.location.href = "/create-listing";
+            window.location.href = "/createListing";
         } else {
             // Redirect to register page if not logged in
             window.location.href = "/register";

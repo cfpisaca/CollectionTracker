@@ -6,7 +6,7 @@ body {
 }
 
 /* Sidebar styles */
-.sidebar {
+.page .sidebar {
     height: 100%;
     width: 200px;
     position: fixed;
@@ -17,13 +17,13 @@ body {
 }
 
 /* Sidebar heading styles */
-.sidebar-heading {
+.page .sidebar-heading {
     text-align: center;
     color: white;
 }
 
 /* Sidebar item styles */
-.sidebar-item {
+.page .sidebar-item {
     color: white;
     text-decoration: none;
     display: block;
@@ -32,12 +32,12 @@ body {
 }
 
 /* Active sidebar item styles */
-.sidebar-item.active {
+.page .sidebar-item.active {
     background-color: #555;
 }
 
 /* Main content styles */
-.main-content {
+.page .main-content {
     margin-left: 220px; /* Adjust to accommodate sidebar width */
     padding: 20px;
 }
