@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import searchIcon from './searchIcon.svg';
 import profileIcon from './profileIcon.webp';
 import './home.css';
@@ -10,13 +9,22 @@ function Home() {
         password: '' 
     });
 
+    const [loggedIn, setLoggedIn] = useState(false); // Track login status
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value });
     };
 
     const handleLogin = () => {
+        setLoggedIn(true); // Set login status to true
         alert(`Log in with Username: ${credentials.username} and Password: ${credentials.password}`);
+    };
+
+    const handleLogout = () => {
+        setLoggedIn(false); // Set login status to false
+        // Redirect to home or login page
+        window.location.href = "/";
     };
 
     const handleRegisterClick = () => {
@@ -24,7 +32,23 @@ function Home() {
     };
 
     const handleYourAccountClick = () => {
-        window.location.href = "/register";
+        if (loggedIn) {
+            // Redirect to user page if logged in
+            window.location.href = "/user";
+        } else {
+            // Redirect to register page if not logged in
+            window.location.href = "/register";
+        }
+    };
+
+    const handleYourCreateNewListing = () => {
+        if (loggedIn) {
+            // Redirect to create listing page if logged in
+            window.location.href = "/create-listing";
+        } else {
+            // Redirect to register page if not logged in
+            window.location.href = "/register";
+        }
     };
 
     return (
@@ -34,26 +58,30 @@ function Home() {
                     <h1>CollectionTracker</h1>
                 </div>
                 <div className="user-actions">
-                    <div className="user-login">
-                        <input
-                            type="text"
-                            placeholder="Email"
-                            name="username"
-                            value={credentials.username}
-                            onChange={handleInputChange}
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            value={credentials.password}
-                            onChange={handleInputChange}
-                        />
-                        <button onClick={handleLogin}>Log In</button>
-                        <button className="register-button" onClick={handleRegisterClick}>
-                            Register
-                        </button>
-                    </div>
+                    {loggedIn ? (
+                        <button className="logout-button" onClick={handleLogout}>Logout</button>
+                    ) : (
+                        <div className="user-login">
+                            <input
+                                type="text"
+                                placeholder="Email"
+                                name="username"
+                                value={credentials.username}
+                                onChange={handleInputChange}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                value={credentials.password}
+                                onChange={handleInputChange}
+                            />
+                            <button onClick={handleLogin}>Log In</button>
+                            <button className="register-button" onClick={handleRegisterClick}>
+                                Register
+                            </button>
+                        </div>
+                    )}
                 </div>
             </header>
             <main className="main-content">
@@ -74,8 +102,8 @@ function Home() {
                         </button>
                     </div>
                     <div className="create-listing">
-                        <button className="create-listing-button">
-                            <Link to="/create-listing" className="create-listing-link">+ Create New Listing</Link>
+                        <button className="create-listing" onClick={handleYourCreateNewListing}>
+                            + Create New Listing
                         </button>
                     </div>
                 </aside>
