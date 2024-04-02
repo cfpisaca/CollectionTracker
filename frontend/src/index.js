@@ -4,7 +4,7 @@ import './index.css';
 import Home from './home';
 import Register from './components/register';
 import User from './components/user';
-
+import CreateListing from './components/createListing';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "user",
     element: <User/>,
+  },
+  {
+    path: "createListing",
+    element: <CreateListing/>
   }
 ]);
 
