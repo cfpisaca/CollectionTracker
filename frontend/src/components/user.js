@@ -1,17 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import profileIcon from './profileIcon.webp';
 import searchIcon from './searchIcon.svg';
 import './user.css'; // Import CSS file
 
-
 function User() {
+    const [showProfileModal, setShowProfileModal] = useState(false);
+
     const handleMarketplaceProfileClick = () => {
-        // Handle Marketplace profile button click
+        setShowProfileModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowProfileModal(false);
     };
 
     const handleManageListingsClick = () => {
         // Handle Manage listings button click
+    };
+
+    const handleCreateListingClick = () => {
+        window.location.href = "/createListing"; // Redirect to create listing page
     };
 
     return (
@@ -27,8 +35,8 @@ function User() {
                         <h2>Marketplace</h2>
                     </div>
                     <div className="create-listing">
-                        <button className="create-listing-button">
-                            <Link to="/create-listing" className="create-listing-link">+ Create New Listing</Link>
+                        <button className="create-listing-button" onClick={handleCreateListingClick}>
+                            + Create New Listing
                         </button>
                         <div className="user-actions">
                             <div className="your-marketplace">
@@ -46,16 +54,16 @@ function User() {
                     </div>
                 </aside>
                 <section id="listings">
-                  <div className="sidebar3-section">
-                    <div className="sidebar3-header">
-                        <h2>Your listings</h2>
-                    </div>
+                    <div className="sidebar3-section">
+                        <div className="sidebar3-header">
+                            <h2>Your listings</h2>
+                        </div>
                         <div className="search-bar-user">
                             <input type="text" placeholder="Search listings" className="search-input" />
                             <img src={searchIcon} className="search-icon" alt="Search Icon" />
                         </div>
                     </div>
-                  </section>
+                </section>
                 <aside className="sidebar2">
                     <div className="sidebar2-section">
                         <h3>Marketplace Profile</h3>
@@ -64,8 +72,8 @@ function User() {
                                 <img src={profileIcon} className="profile-icon" alt="Profile Icon" />
                                 <span className="user-name">USERNAME HERE</span>
                             </div>
-                            <button className="create-listing-button">
-                                <Link to="/create-listing" className="create-listing-link">+ Create New Listing</Link>
+                            <button className="create-listing-button" onClick={handleCreateListingClick}>
+                                + Create New Listing
                             </button>
                             <button className="see-marketplace-button" onClick={handleMarketplaceProfileClick}>
                                 See Marketplace Profile
@@ -74,6 +82,16 @@ function User() {
                     </div>
                 </aside>
             </main>
+
+            {showProfileModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <span className="close-modal" onClick={handleCloseModal}>×</span>
+                        <h2>Marketplace Profile</h2>
+                        {/* Content of the modal */}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
