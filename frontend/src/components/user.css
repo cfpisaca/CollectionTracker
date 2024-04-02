@@ -25,6 +25,10 @@ body, h1, h2 {
   color: #fff;
 }
 
+.sidebar-user h2 {
+  margin: 5px;
+}
+
 .user-actions {
   display: flex;
 }
@@ -103,6 +107,11 @@ body, h1, h2 {
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2); 
   position: relative;
   z-index: 3;
+}
+
+.sidebar-section {
+  display: flex;
+  align-items: center; 
 }
 
 .sidebar2 {
@@ -203,8 +212,6 @@ body, h1, h2 {
   font-size: 15px;
 }
 
-/* Add this CSS at the end of the existing CSS */
-
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -216,29 +223,51 @@ body, h1, h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(5px); /* Apply background blur */
+  backdrop-filter: blur(5px); 
 }
 
-/* Update the .modal class */
 .modal {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   position: relative;
-  width: 80%; /* Adjust the width of the modal */
-  max-width: 700px; /* Set a maximum width for the modal */
-  height: 700px; /* Set the height of the modal */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+  width: 80%;
+  max-width: 700px; 
+  height: 700px;
+  overflow-y: auto; 
 }
 
 .close-modal {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 20px;
   cursor: pointer;
+  font-size: 24px; 
 }
 
+.go-back-button {
+  background-color: #fff;
+  color: #000;
+  padding: 1px 1px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  border-radius: 60px;
+  width: 40px;
+  height: 40px;
+  margin-top: 3px;
+}
 
+.go-back-button:hover {
+  background-color: #dcdcdc;
+}
+
+.arrow-icon {
+  height: 38px;
+  width: 37px;
+  margin-left: 1px;
+}
 
 @media only screen and (max-width: 1300px) {
   .sidebar2-section {
