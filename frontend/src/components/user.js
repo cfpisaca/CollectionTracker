@@ -1,6 +1,8 @@
+// User.js
 import React, { useState } from 'react';
 import profileIcon from './profileIcon.webp';
 import searchIcon from './searchIcon.svg';
+import arrowIcon from './arrowIcon.png';
 import './user.css'; // Import CSS file
 
 function User() {
@@ -22,6 +24,10 @@ function User() {
         window.location.href = "/createListing"; // Redirect to create listing page
     };
 
+    const handleGoToHomePage = () => {
+        window.location.href = "/"; // Redirect to home page
+    };
+
     return (
         <div className="User">
             <header className="header">
@@ -32,6 +38,9 @@ function User() {
             <main className="main-content">
                 <aside className="sidebar-user">
                     <div className="sidebar-section">
+                        <button className="go-back-button" onClick={handleGoToHomePage}>
+                            <img src={arrowIcon} className="arrow-icon" alt="Arrow Icon" />
+                        </button>
                         <h2>Marketplace</h2>
                     </div>
                     <div className="create-listing">
@@ -88,7 +97,6 @@ function User() {
                     <div className="modal">
                         <span className="close-modal" onClick={handleCloseModal}>×</span>
                         <h2>Marketplace Profile</h2>
-                        {/* Content of the modal */}
                     </div>
                 </div>
             )}
