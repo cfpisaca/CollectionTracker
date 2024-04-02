@@ -85,13 +85,8 @@
         	<version>3.25.3</version>
         	<scope>test</scope>
     	</dependency>
-
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
