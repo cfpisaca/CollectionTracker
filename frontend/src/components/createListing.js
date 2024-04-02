@@ -2,10 +2,46 @@ import React, { useState } from 'react';
 import './createListing.css';
 
 function CreateListing() {
-  const handleFileUpload = (event) => {
+    const [itemName, setItemName] = useState('');
+    const [itemPrice, setItemPrice] = useState('');
+    const [itemDescription, setItemDescription] = useState('');
+    const [itemPicture, setItemPicture] = useState(null); // Store file data
+
+    const handleFileUpload = (event) => {
     const file = event.target.files[0];
     console.log('Uploaded file:', file);
+    setItemPicture(file);
    
+  };
+
+    const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // Create FormData object to send form data including files
+    const formData = new FormData();
+    formData.append('itemName', itemName);
+    formData.append('itemPrice', itemPrice);
+    formData.append('itemDescription', itemDescription);
+    formData.append('itemPicture', itemPicture);
+
+    // try {
+    //   const response = await fetch('https://your-backend-api-url.com/your-endpoint', {
+    //     method: 'POST',
+    //     body: formData,
+    //   });
+    //   if (response.ok) {
+    //     console.log('Item information sent successfully.');
+    //     // Reset form fields after successful submission
+    //     setItemName('');
+    //     setItemPrice('');
+    //     setItemDescription('');
+    //     setItemPicture(null);
+    //   } else {
+    //     console.error('Failed to send item information.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error sending item information:', error);
+    // }
   };
 
   return (
@@ -27,8 +63,7 @@ function CreateListing() {
 
         {/* File Upload input for Item Picture */}
         <label htmlFor="itemPicture">Item Picture:</label><br />
-        <input type="file" id="itemPicture" name="itemPicture" accept="image/*" onChange={handleFileUpload} required /><br /><br />
-
+        <input type="file" id="itemPictures" name="itemPictures" accept="image/*" multiple onChange={handleFileUpload} required /><br /><br />
         {/* Submit button */}
         <button type="submit">Create Listing</button>
       </form>
