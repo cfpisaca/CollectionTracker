@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Column;
 
 @Entity
 @Table(name = "users") // Define the table name in the database
@@ -13,12 +14,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "firstname")
     private String firstname;
+
+    @Column(name = "lastname")
     private String lastname;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "email_or_modile")
     private String emailOrMobile;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "birthdate")
     private String birthdate;
+
+    @Column(name = "gender")
     private String gender;
 
     // Getter and Setter methods
