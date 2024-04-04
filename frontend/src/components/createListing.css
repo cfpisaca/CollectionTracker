@@ -13,28 +13,112 @@
   align-items: center;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   z-index: 2;
-  width: 350px; 
-  max-width: 100%; 
-  position: fixed; 
+  width: 350px;
+  position: fixed;
+  justify-content: flex-start;
+}
+
+.CreateListing .header .back-button {
+  background-color: #266d9d;
+  color: rgb(162, 162, 162);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.CreateListing .header .back-button:hover {
+  background-color: #205e87;
+}
+
+.CreateListing .header .back-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .CreateListing .header h1 {
   color: #fff;
+  margin: 0;
 }
 
 .CreateListing .sidebar {
   background-color: #fff;
-  width: 350px;
+  width: 340px;
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
+  padding-top: 60px;
+  padding-left: 20px;
+}
+
+.CreateListing .sidebar h2,
+.CreateListing .sidebar h3 {
+  margin: 20px 0;
+}
+
+.CreateListing .sidebar button {
+  display: block;
+  margin: 10px 0;
+}
+
+.CreateListing .sidebar .input-box {
+  width: 96%;
+  margin: 10px 0;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 16px;
+  color: #333;
+}
+
+.CreateListing .sidebar .input-box:focus {
+  outline: none;
+  border-color: #318bc6;
+  box-shadow: 0 0 0 2px rgba(49, 139, 198, 0.2);
+}
+
+.CreateListing .sidebar textarea.input-box {
+  height: 100px;
+  resize: vertical;
 }
 
 .CreateListing #background {
   background-color: #ededed;
   flex-grow: 1;
   padding: 10px;
-  margin-left: 350px; 
+  margin-left: 350px;
+  padding-top: 60px;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.CreateListing .sidebar .buttons-container {
+  display: flex;
+  gap: 10px; 
+  margin: 10px 0;
+  width: 95%;
+}
+
+.CreateListing .sidebar .button-style {
+  flex: 1;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  text-align: center;
+}
+
+.CreateListing .sidebar .button-style:hover {
+  background-color: #e6f7ff;
+  border-color: #318bc6;
 }
