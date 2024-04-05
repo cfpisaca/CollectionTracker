@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './createListing.css';
 
 function CreateListing() {
@@ -8,6 +8,23 @@ function CreateListing() {
     const [media, setMedia] = useState([]);
     const photoInputRef = useRef(null);
     const videoInputRef = useRef(null);
+    const previewContainerRef = useRef(null);
+
+    useEffect(() => {
+        const updatePreviewContainerSize = () => {
+            const aspectRatio = media.length > 0 ? media[0].aspectRatio : 16 / 12; 
+            const previewContainer = previewContainerRef.current;
+            if (previewContainer) {
+                const width = previewContainer.offsetWidth;
+                const height = width / aspectRatio;
+                previewContainer.style.height = `${height}px`;
+            }
+        };
+
+        updatePreviewContainerSize();
+        window.addEventListener('resize', updatePreviewContainerSize);
+        return () => window.removeEventListener('resize', updatePreviewContainerSize);
+    }, [media]);
 
     const handleBack = () => {
         window.history.back();
@@ -30,7 +47,7 @@ function CreateListing() {
         if (words.length <= 150) {
             setDescription(e.target.value);
         } else {
-            alert("Description cannot exceed 300 words.");
+            alert("Description cannot exceed 150 words.");
         }
     };
 
@@ -67,7 +84,7 @@ function CreateListing() {
                         <input type="file" multiple ref={photoInputRef} style={{display: 'none'}} accept="image/*" onChange={handleMediaChange} />
                         <button className="button-style" onClick={triggerPhotoUpload}>Add Photos</button>
                         <input type="file" multiple ref={videoInputRef} style={{display: 'none'}} accept="video/*" onChange={handleMediaChange} />
-                        <button className="button-style" onClick={triggerVideoUpload}>Add Video</button>
+                        <button className="button-style" onClick={triggerVideoUpload}>Add Videos</button>
                     </div>
                     <h3>Required</h3>
                     <input type="text" placeholder="Title" className="input-box" value={title} onChange={handleTitleChange} />
@@ -77,11 +94,11 @@ function CreateListing() {
                 <section id="background">
                     <div className="preview-box">
                         <h2>Preview</h2>
-                        <div className="preview-container">
+                        <div className="preview-container" ref={previewContainerRef}>
                             <div className="media-preview">
                                 {media.map((item, index) => (
-                                    item.type === 'image' ? <img key={index} src={item.url} alt="Upload" style={{maxWidth: '100%', maxHeight: '100px'}} /> :
-                                    <video key={index} src={item.url} controls style={{maxWidth: '100%', maxHeight: '100px'}} />
+                                    item.type === 'image' ? <img key={index} src={item.url} alt="Upload" /> :
+                                    <video key={index} src={item.url} controls />
                                 ))}
                             </div>
                             <div className="details-preview">

@@ -41,13 +41,10 @@
 
 .CreateListing .sidebar {
   background-color: #fff;
-  width: 340px;
+  width: 350px;
   position: fixed;
-  left: 0;
-  top: 0;
+  top: 50px;
   bottom: 0;
-  padding-top: 60px;
-  padding-left: 20px;
 }
 
 .CreateListing .sidebar h2,
@@ -67,7 +64,7 @@
   font-size: 16px;
   color: #333;
   cursor: pointer;
-  text-align: center;
+  margin-left: 5px;
 }
 
 .CreateListing .sidebar button:hover,
@@ -86,6 +83,7 @@
   background-color: #f9f9f9;
   font-size: 16px;
   color: #333;
+  margin-left: 5px;
 }
 
 .CreateListing .sidebar .input-box:focus {
@@ -102,8 +100,12 @@
 .CreateListing #background {
   background-color: #ededed;
   flex-grow: 1;
-  padding-left: 350px; 
+  padding-left: 375px;
   padding-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .CreateListing #background .preview-box {
@@ -112,12 +114,7 @@
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   width: 80%;
   height: 90%;
-  margin: 0 auto;
   padding: 20px;
-  position: relative;
-  top: 47.75%;
-  transform: translateY(-50%);
-  margin-left: 110px;
 }
 
 .CreateListing .details-preview {
@@ -132,20 +129,40 @@
   width: 100%;
   height: 95%;
   margin-top: 5px;
-  overflow: hidden;  
+  overflow: hidden;
 }
 
 .CreateListing #background .preview-box .preview-container .media-preview {
   background-color: #ededed;
   flex: 1;
-  padding: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
 
+.CreateListing #background .preview-box .preview-container .media-preview img,
+.CreateListing #background .preview-box .preview-container .media-preview video {
+  width: 100%; /* Ensure the image takes up the full width */
+  height: auto; /* Allow the height to adjust proportionally */
+  object-fit: contain; /* Ensure the entire image is visible */
+}
+
+
 .CreateListing #background .preview-box .preview-container .details-preview {
-  flex: 1;
+  flex-shrink: 0;
+  flex-basis: 350px;
   padding: 10px;
+}
+
+@media (max-width: 1000px) {
+  .CreateListing .sidebar {
+    width: 100%;
+  }
+  
+  .CreateListing .header {
+    width: 100%;
+  }
 }
