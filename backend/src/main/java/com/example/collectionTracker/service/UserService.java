@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
 
 @Service
 public class UserService {
@@ -24,19 +25,37 @@ public class UserService {
 
     // Read operation
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        try {
+            return userRepository.findAll();
+        } catch (Exception e) {
+            // Log the exception or handle it in some other way
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     // Update operation
     @SuppressWarnings("null")
     public User updateUser(User user) {
-        return userRepository.save(user);
+        Long userId = user.getId();
+        Optional<User> existingUser = userRepository.findById(userId);
+        if (existingUser.isPresent()) {
+            return userRepository.save(user);
+        } else {
+            // Handle case where user with specifiec ID doesn't exist
+            throw new IllegalArgumentException("User with ID " + userId + " not found");
+        }
     }
 
     // Delete operation
     @SuppressWarnings("null")
     public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
+        Optional<User> existingUser = userRepository.findById(userId);
+        if (existingUser.isPresent()) {
+            userRepository.deleteById(userId);
+        } else {
+            throw new IllegalArgumentException("User with ID " + userId + " not found");
+        }
     }
 
     // Get user by ID
