@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import searchIcon from './searchIcon.svg';
 import profileIcon from './profileIcon.webp';
 import './home.css';
 
 function Home() {
-    const [credentials, setCredentials] = useState({ 
-        username: '', 
-        password: '' 
+    const [credentials, setCredentials] = useState({
+        username: localStorage.getItem('username') || '',
+        password: ''
     });
 
-    const [loggedIn, setLoggedIn] = useState(false); // Track login status
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') === 'true');
+
+    useEffect(() => {
+        localStorage.setItem('loggedIn', loggedIn);
+        if (loggedIn) {
+            localStorage.setItem('username', credentials.username);
+        } else {
+            localStorage.removeItem('username');
+        }
+    }, [loggedIn, credentials.username]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -17,13 +26,12 @@ function Home() {
     };
 
     const handleLogin = () => {
-        setLoggedIn(true); // Set login status to true
+        setLoggedIn(true);
         alert(`Log in with Username: ${credentials.username} and Password: ${credentials.password}`);
     };
 
     const handleLogout = () => {
-        setLoggedIn(false); // Set login status to false
-        // Redirect to home or login page
+        setLoggedIn(false);
         window.location.href = "/";
     };
 
@@ -33,20 +41,16 @@ function Home() {
 
     const handleYourAccountClick = () => {
         if (loggedIn) {
-            // Redirect to user page if logged in
             window.location.href = "/user";
         } else {
-            // Redirect to register page if not logged in
             window.location.href = "/register";
         }
     };
 
     const handleYourCreateNewListing = () => {
         if (loggedIn) {
-            // Redirect to create listing page if logged in
             window.location.href = "/createListing";
         } else {
-            // Redirect to register page if not logged in
             window.location.href = "/register";
         }
     };

@@ -1,74 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './createListing.css';
 
 function CreateListing() {
-    const [itemName, setItemName] = useState('');
-    const [itemPrice, setItemPrice] = useState('');
-    const [itemDescription, setItemDescription] = useState('');
-    const [itemPicture, setItemPicture] = useState(null); // Store file data
+    const [title, setTitle] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [media, setMedia] = useState([]);
+    const photoInputRef = useRef(null);
+    const videoInputRef = useRef(null);
+    const previewContainerRef = useRef(null);
 
-    const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    console.log('Uploaded file:', file);
-    setItemPicture(file);
-   
-  };
+    useEffect(() => {
+        const updatePreviewContainerSize = () => {
+            const aspectRatio = media.length > 0 ? media[0].aspectRatio : 16 / 12; 
+            const previewContainer = previewContainerRef.current;
+            if (previewContainer) {
+                const width = previewContainer.offsetWidth;
+                const height = width / aspectRatio;
+                previewContainer.style.height = `${height}px`;
+            }
+        };
 
-    const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission
+        updatePreviewContainerSize();
+        window.addEventListener('resize', updatePreviewContainerSize);
+        return () => window.removeEventListener('resize', updatePreviewContainerSize);
+    }, [media]);
 
-    // Create FormData object to send form data including files
-    const formData = new FormData();
-    formData.append('itemName', itemName);
-    formData.append('itemPrice', itemPrice);
-    formData.append('itemDescription', itemDescription);
-    formData.append('itemPicture', itemPicture);
+    const handleBack = () => {
+        window.history.back();
+    };
 
-    // try {
-    //   const response = await fetch('https://your-backend-api-url.com/your-endpoint', {
-    //     method: 'POST',
-    //     body: formData,
-    //   });
-    //   if (response.ok) {
-    //     console.log('Item information sent successfully.');
-    //     // Reset form fields after successful submission
-    //     setItemName('');
-    //     setItemPrice('');
-    //     setItemDescription('');
-    //     setItemPicture(null);
-    //   } else {
-    //     console.error('Failed to send item information.');
-    //   }
-    // } catch (error) {
-    //   console.error('Error sending item information:', error);
-    // }
-  };
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+    };
 
-  return (
-    
-    <div className="CreateListing">
-      <form id="createListingForm">
-        <h1>Create Listing</h1> {/* Moved inside the form */}
-        {/* Item Name input */}
-        <label htmlFor="itemName">Item Name:</label>
-        <input type="text" id="itemName" name="itemName" required /><br /><br />
+    const handlePriceChange = (e) => {
+        const inputValue = e.target.value;
+        const pattern = /^\d{1,8}(\.\d{0,2})?$/;
+        if (pattern.test(inputValue)) {
+            setPrice(inputValue);
+        }
+    };
 
-        {/* Item Price input */}
-        <label htmlFor="itemPrice">Item Price:</label>
-        <input type="number" id="itemPrice" name="itemPrice" min="0" step="0.01" required /><br /><br />
+    const handleDescriptionChange = (e) => {
+        const words = e.target.value.split(/\s+/);
+        if (words.length <= 150) {
+            setDescription(e.target.value);
+        } else {
+            alert("Description cannot exceed 150 words.");
+        }
+    };
 
-        {/* Item Description input */}
-        <label htmlFor="itemDescription">Item Description:</label><br />
-        <input type="text" id="itemDescription" name="itemDescription" required/><br /><br />
+    const handleMediaChange = (event) => {
+        const files = event.target.files;
+        const newMediaItems = Array.from(files).map(file => ({
+            type: file.type.startsWith('image') ? 'image' : 'video',
+            url: URL.createObjectURL(file)
+        }));
+        setMedia(prev => [...prev, ...newMediaItems]);
+    };
 
-        {/* File Upload input for Item Picture */}
-        <label htmlFor="itemPicture">Item Picture:</label><br />
-        <input type="file" id="itemPictures" name="itemPictures" accept="image/*" multiple onChange={handleFileUpload} required /><br /><br />
-        {/* Submit button */}
-        <button type="submit">Create Listing</button>
-      </form>
-    </div>
-  );
+    const triggerPhotoUpload = () => photoInputRef.current.click();
+    const triggerVideoUpload = () => videoInputRef.current.click();
+
+    const formatPriceForDisplay = (price) => {
+        const priceAsNumber = Number(price);
+        if (priceAsNumber > 100) {
+            return priceAsNumber.toLocaleString();
+        }
+        return price;
+    };
+
+    return (
+        <div className="CreateListing">
+            <header className="header">
+                <button onClick={handleBack} className="back-button">X</button>
+                <h1>CollectionTracker</h1>
+            </header>
+            <main className="main-content">
+                <aside className="sidebar">
+                    <h2>Item for Sale</h2>
+                    <div className="buttons-container">
+                        <input type="file" multiple ref={photoInputRef} style={{display: 'none'}} accept="image/*" onChange={handleMediaChange} />
+                        <button className="button-style" onClick={triggerPhotoUpload}>Add Photos</button>
+                        <input type="file" multiple ref={videoInputRef} style={{display: 'none'}} accept="video/*" onChange={handleMediaChange} />
+                        <button className="button-style" onClick={triggerVideoUpload}>Add Videos</button>
+                    </div>
+                    <h3>Required</h3>
+                    <input type="text" placeholder="Title" className="input-box" value={title} onChange={handleTitleChange} />
+                    <input type="number" placeholder="Price" className="input-box" value={price} onChange={handlePriceChange} />
+                    <textarea placeholder="Description" className="input-box" value={description} onChange={handleDescriptionChange}></textarea>
+                </aside>
+                <section id="background">
+                    <div className="preview-box">
+                        <h2>Preview</h2>
+                        <div className="preview-container" ref={previewContainerRef}>
+                            <div className="media-preview">
+                                {media.map((item, index) => (
+                                    item.type === 'image' ? <img key={index} src={item.url} alt="Upload" /> :
+                                    <video key={index} src={item.url} controls />
+                                ))}
+                            </div>
+                            <div className="details-preview">
+                                <h3>{title || 'Title'}</h3>
+                                <p>{price ? `$${formatPriceForDisplay(price)}` : 'Price'}</p>
+                                <h3>Details</h3>
+                                <p>{description || 'Description will appear here.'}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    );
 }
 
 export default CreateListing;
