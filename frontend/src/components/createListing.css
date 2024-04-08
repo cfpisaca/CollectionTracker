@@ -127,8 +127,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 100%;
-  height: 95%;
-  margin-top: 5px;
+  position: relative;
   overflow: hidden;
 }
 
@@ -145,17 +144,52 @@
 
 .CreateListing #background .preview-box .preview-container .media-preview img,
 .CreateListing #background .preview-box .preview-container .media-preview video {
-  width: 100%; /* Ensure the image takes up the full width */
-  height: auto; /* Allow the height to adjust proportionally */
-  object-fit: contain; /* Ensure the entire image is visible */
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
 }
 
+.CreateListing #background .preview-box .preview-container .media-preview img.vertical {
+  object-fit: cover; 
+}
+
+.CreateListing #background .preview-box .preview-container .image-navigation button {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.CreateListing #background .preview-box .preview-container .image-navigation button:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
 .CreateListing #background .preview-box .preview-container .details-preview {
   flex-shrink: 0;
   flex-basis: 350px;
   padding: 10px;
 }
+
+.CreateListing .sidebar button[type="submit"] {
+  background-color: #318bc6; 
+  color: white; 
+  border: none;
+  padding: 15px;
+  width: 97%;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.CreateListing .sidebar button[type="submit"]:hover {
+  background-color: #266d9d; 
+}
+
 
 @media (max-width: 1000px) {
   .CreateListing .sidebar {

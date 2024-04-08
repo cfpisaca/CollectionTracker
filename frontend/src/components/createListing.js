@@ -6,13 +6,24 @@ function CreateListing() {
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [media, setMedia] = useState([]);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const photoInputRef = useRef(null);
     const videoInputRef = useRef(null);
     const previewContainerRef = useRef(null);
 
     useEffect(() => {
         const updatePreviewContainerSize = () => {
-            const aspectRatio = media.length > 0 ? media[0].aspectRatio : 16 / 12; 
+            let aspectRatio;
+            if (media.length > 0) {
+                if (media[currentImageIndex].type === 'image') {
+                    aspectRatio = media[currentImageIndex].aspectRatio;
+                } else {
+                    aspectRatio = 16 / 12;
+                }
+            } else {
+                aspectRatio = 16 / 12;
+            }
+
             const previewContainer = previewContainerRef.current;
             if (previewContainer) {
                 const width = previewContainer.offsetWidth;
@@ -24,7 +35,7 @@ function CreateListing() {
         updatePreviewContainerSize();
         window.addEventListener('resize', updatePreviewContainerSize);
         return () => window.removeEventListener('resize', updatePreviewContainerSize);
-    }, [media]);
+    }, [media, currentImageIndex]);
 
     const handleBack = () => {
         window.history.back();
@@ -53,11 +64,12 @@ function CreateListing() {
 
     const handleMediaChange = (event) => {
         const files = event.target.files;
-        const newMediaItems = Array.from(files).map(file => ({
+        const newMediaItems = Array.from(files).map((file) => ({
             type: file.type.startsWith('image') ? 'image' : 'video',
-            url: URL.createObjectURL(file)
+            url: URL.createObjectURL(file),
+            aspectRatio: file.type.startsWith('image') ? file.width / file.height : 16 / 12,
         }));
-        setMedia(prev => [...prev, ...newMediaItems]);
+        setMedia((prev) => [...prev, ...newMediaItems]);
     };
 
     const triggerPhotoUpload = () => photoInputRef.current.click();
@@ -71,35 +83,87 @@ function CreateListing() {
         return price;
     };
 
+    const handleNextImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % media.length);
+    };
+
+    const handlePreviousImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + media.length) % media.length);
+    };
+
+    const handleRemoveImage = () => {
+        setMedia((prevMedia) => prevMedia.filter((_, index) => index !== currentImageIndex));
+        setCurrentImageIndex(0);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('description', description);
+        media.forEach((item, index) => {
+            formData.append(`media${index}`, item.url);
+        });
+
+        console.log(formData);
+    };
+
     return (
         <div className="CreateListing">
             <header className="header">
-                <button onClick={handleBack} className="back-button">X</button>
+                <button onClick={handleBack} className="back-button">
+                    X
+                </button>
                 <h1>CollectionTracker</h1>
             </header>
             <main className="main-content">
                 <aside className="sidebar">
                     <h2>Item for Sale</h2>
                     <div className="buttons-container">
-                        <input type="file" multiple ref={photoInputRef} style={{display: 'none'}} accept="image/*" onChange={handleMediaChange} />
-                        <button className="button-style" onClick={triggerPhotoUpload}>Add Photos</button>
-                        <input type="file" multiple ref={videoInputRef} style={{display: 'none'}} accept="video/*" onChange={handleMediaChange} />
-                        <button className="button-style" onClick={triggerVideoUpload}>Add Videos</button>
+                        <input type="file" multiple ref={photoInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleMediaChange} />
+                        <button className="button-style" onClick={triggerPhotoUpload}>
+                            Add Photos
+                        </button>
+                        <input type="file" multiple ref={videoInputRef} style={{ display: 'none' }} accept="video/*" onChange={handleMediaChange} />
+                        <button className="button-style" onClick={triggerVideoUpload}>
+                            Add Videos
+                        </button>
                     </div>
                     <h3>Required</h3>
                     <input type="text" placeholder="Title" className="input-box" value={title} onChange={handleTitleChange} />
                     <input type="number" placeholder="Price" className="input-box" value={price} onChange={handlePriceChange} />
                     <textarea placeholder="Description" className="input-box" value={description} onChange={handleDescriptionChange}></textarea>
+                    <button type="submit" className="button-style" onClick={handleSubmit}>
+                        Create Listing
+                    </button>
                 </aside>
                 <section id="background">
                     <div className="preview-box">
                         <h2>Preview</h2>
                         <div className="preview-container" ref={previewContainerRef}>
-                            <div className="media-preview">
+                            <div className="media-preview" style={{ position: 'relative' }}>
                                 {media.map((item, index) => (
-                                    item.type === 'image' ? <img key={index} src={item.url} alt="Upload" /> :
-                                    <video key={index} src={item.url} controls />
+                                    index === currentImageIndex && (
+                                        item.type === 'image' ? (
+                                            <img key={index} src={item.url} alt="Upload" className={item.aspectRatio < 1 ? "vertical" : ""} />
+                                        ) : (
+                                            <video key={index} src={item.url} controls style={{ zIndex: '1' }} />
+                                        )
+                                    )
                                 ))}
+                                <div className="image-navigation" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                                    {media.length > 1 && (
+                                        <>
+                                            <button style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 0, zIndex: '2' }} onClick={handlePreviousImage}>&lt;</button>
+                                            <button style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: 0, zIndex: '2' }} onClick={handleNextImage}>&gt;</button>
+                                        </>
+                                    )}
+                                    {media.length > 0 && (
+                                        <button className="remove-button" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '2' }} onClick={handleRemoveImage}>X</button>
+                                    )}
+                                </div>
                             </div>
                             <div className="details-preview">
                                 <h3>{title || 'Title'}</h3>
