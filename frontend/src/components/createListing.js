@@ -67,7 +67,7 @@ function CreateListing() {
         const newMediaItems = Array.from(files).map((file) => ({
             type: file.type.startsWith('image') ? 'image' : 'video',
             url: URL.createObjectURL(file),
-            aspectRatio: file.type.startsWith('image') ? file.width / file.height : 16 / 12,
+            aspectRatio: file.type.startsWith('image') ? 16 / 12 : 16 / 12,
         }));
         setMedia((prev) => [...prev, ...newMediaItems]);
     };
@@ -107,7 +107,19 @@ function CreateListing() {
             formData.append(`media${index}`, item.url);
         });
 
-        console.log(formData);
+        try {
+            const response = await fetch('http://localhost:8080/api/listings', {
+                method: 'POST',
+                body: formData,
+            });
+            if (response.ok) {
+                // Handle success
+            } else {
+                // Handle failure
+            }
+        } catch (error) {
+            // Handle error
+        }
     };
 
     return (
