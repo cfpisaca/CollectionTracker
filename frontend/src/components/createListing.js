@@ -108,7 +108,7 @@ function CreateListing() {
         });
 
         try {
-            const response = await fetch('http://localhost:8080/api/listings', {
+            const response = await fetch('http://localhost:5433/api/listings', {
                 method: 'POST',
                 body: formData,
             });
