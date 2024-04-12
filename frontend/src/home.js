@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import searchIcon from './searchIcon.svg';
-import profileIcon from './profileIcon.webp';
+import profileIcon from './icons/profileIcon.webp';
+import searchIcon from './icons/searchIcon.svg';
 import './home.css';
 
 function Home() {
