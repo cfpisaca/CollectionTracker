@@ -13,106 +13,50 @@ function Register() {
         gender: '',
     });
 
-    const [formErrors, setFormErrors] = useState([]);
+    const [formErrors, setFormErrors] = useState({});
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-        setFormErrors({ ...formErrors, [e.target.name]: '' });
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormErrors(prev => ({ ...prev, [name]: '' }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const response = await fetch('http://localhost:8080/addCollector', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ ...formData, id: Date.now() }),
+        });
 
-        const collector = {
-            id: Date.now(),
-            firstname: formData.firstname,
-            lastname: formData.lastname,
-            username: formData.username,
-            emailOrMobile: formData.emailOrMobile,
-            password: formData.password,
-            birthdate: formData.birthdate,
-            gender: formData.gender
-        };
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-        try {
-            const response = await fetch('http://localhost:8080/addCollector', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(collector),
-            });
+        console.log('Success:', await response.json());
+        alert('User created successfully!');
+    };
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log('Success:', data);
-            alert('User created successfully!');
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to create user');
-        }
-    };   
+    const renderInput = (name, type, placeholder) => (
+        <>
+            <input type={type} name={name} placeholder={placeholder} value={formData[name]} onChange={handleChange} />
+            {formErrors[name] && <p className="error-message">{formErrors[name]}</p>}
+        </>
+    );
 
     return (
         <div className="page-wrapper">
             <div className="register-form">
                 <h1>CollectionTracker</h1>
                 <form onSubmit={handleSubmit}>
-                <h2>Create a new account</h2>
-                <hr className="divider" />
+                    <h2>Create a new account</h2>
+                    <hr className="divider" />
                     <div className="name-fields">
-                        <input
-                            type="text"
-                            name="firstname"
-                            placeholder="First Name"
-                            value={formData.firstname}
-                            onChange={handleChange}
-                        />
-                        {formErrors.firstname && <p className="error-message">{formErrors.firstname}</p>}
-                        <input
-                            type="text"
-                            name="lastname"
-                            placeholder="Last Name"
-                            value={formData.lastname}
-                            onChange={handleChange}
-                        />
-                        {formErrors.lastname && <p className="error-message">{formErrors.lastname}</p>}
+                        {renderInput('firstname', 'text', 'First Name')}
+                        {renderInput('lastname', 'text', 'Last Name')}
                     </div>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={formData.username}
-                        onChange={handleChange}
-                    />
-                    {formErrors.username && <p className="error-message">{formErrors.username}</p>}
-                    <input
-                        type="text"
-                        name="emailOrMobile"
-                        placeholder="Mobile number or email"
-                        value={formData.emailOrMobile}
-                        onChange={handleChange}
-                    />
-                    {formErrors.emailOrMobile && <p className="error-message">{formErrors.emailOrMobile}</p>}
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="New password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                    {formErrors.password && <p className="error-message">{formErrors.password}</p>}
-                    <label htmlFor="birthdate">Date of Birth</label>
-                    <input
-                        type="date"
-                        name="birthdate"
-                        value={formData.birthdate}
-                        onChange={handleChange}
-                    />
-                    {formErrors.birthdate && <p className="error-message">{formErrors.birthdate}</p>}
+                    {renderInput('username', 'text', 'Username')}
+                    {renderInput('emailOrMobile', 'text', 'Mobile number or email')}
+                    {renderInput('password', 'password', 'New password')}
+                    {renderInput('birthdate', 'date', '')}
                     <label htmlFor="gender">Gender</label>
                     <select name="gender" value={formData.gender} onChange={handleChange}>
                         <option value="">Select Gender</option>
@@ -122,7 +66,6 @@ function Register() {
                     </select>
                     {formErrors.gender && <p className="error-message">{formErrors.gender}</p>}
                     <button type="submit">Sign Up</button>
-                    {/* Already have an account link */}
                     <div className="have-account">
                         <p><Link to="/">Already have an account? </Link></p>
                     </div>
