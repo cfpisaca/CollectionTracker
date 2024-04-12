@@ -64,11 +64,19 @@ function CreateListing() {
 
     const handleMediaChange = (event) => {
         const files = event.target.files;
+        const totalMediaCount = media.length + files.length;
+    
+        if (totalMediaCount > 10) {
+            alert("You can only upload a maximum of 10 photos and videos.");
+            return;
+        }
+    
         const newMediaItems = Array.from(files).map((file) => ({
             type: file.type.startsWith('image') ? 'image' : 'video',
             url: URL.createObjectURL(file),
             aspectRatio: file.type.startsWith('image') ? 16 / 12 : 16 / 12,
         }));
+    
         setMedia((prev) => [...prev, ...newMediaItems]);
     };
 
@@ -99,29 +107,35 @@ function CreateListing() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('price', price);
-        formData.append('description', description);
-        media.forEach((item, index) => {
-            formData.append(`media${index}`, item.url);
-        });
+        const listing = {
+            id: Date.now(),
+            title: title,
+            price: parseFloat(price),
+            description: description
+        };
 
         try {
-            const response = await fetch('http://localhost:5433/api/listings', {
+            const response = await fetch('http://localhost:8080/addListing', {
                 method: 'POST',
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(listing),
             });
-            if (response.ok) {
-                // Handle success
-            } else {
-                // Handle failure
-            }
-        } catch (error) {
-            // Handle error
-        }
-    };
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+            alert('Listing created successfully!');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to create listing');
+        }
+    };   
+    
     return (
         <div className="CreateListing">
             <header className="header">

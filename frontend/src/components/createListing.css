@@ -5,17 +5,20 @@
   overflow: hidden;
 }
 
+.CreateListing h2 {
+  display: flex;
+}
+
 .CreateListing .header {
   background-color: #318bc6;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 2;
-  width: 350px;
-  position: fixed;
-  justify-content: flex-start;
+  z-index: 2; 
+  position: fixed; 
+  width: 100%; 
+  justify-content: flex-start; 
 }
 
 .CreateListing .header .back-button {
@@ -93,8 +96,10 @@
 }
 
 .CreateListing .sidebar textarea.input-box {
-  height: 100px;
-  resize: vertical;
+  height: 320px; 
+  resize: none;
+  overflow-y: auto; 
+  margin-bottom: 10px;
 }
 
 .CreateListing #background {
@@ -113,8 +118,11 @@
   border-radius: 8px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   width: 80%;
-  height: 90%;
+  min-height: 90%;
+  max-height: 90vh; 
   padding: 20px;
+  display: flex;
+  flex-direction: column; 
 }
 
 .CreateListing .details-preview {
@@ -123,6 +131,7 @@
 }
 
 .CreateListing #background .preview-box .preview-container {
+  flex-grow: 1; 
   display: flex;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -190,8 +199,7 @@
   background-color: #266d9d; 
 }
 
-
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
   .CreateListing .sidebar {
     width: 100%;
   }
