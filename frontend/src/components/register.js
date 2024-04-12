@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './register.css'; // Import CSS file
+import './register.css'; 
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -21,60 +20,41 @@ function Register() {
         setFormErrors({ ...formErrors, [e.target.name]: '' });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Basic form validation
-        const errors = [];
-        if (!formData.firstname) {
-            errors.firstname = 'First name is required';
-        }
-        if (!formData.lastname) {
-            errors.lastname = 'Last name is required';
-        }
-        if (!formData.username) {
-            errors.username = 'Username is required';
-        }
-        if (!formData.emailOrMobile) {
-            errors.emailOrMobile = 'Email or Mobile number is required';
-        }
-        if (!formData.password) {
-            errors.password = 'Password is required';
-        }
-        if (!formData.birthdate) {
-            errors.birthdate = 'Date of birth is required';
-        }
-        if (!formData.gender) {
-            errors.gender = 'Gender is required';
-        }
-        setFormErrors(errors);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-        // Check if there are any errors
-        if (Object.keys(errors).length === 0) {
+        const collector = {
+            id: Date.now(),
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            username: formData.username,
+            emailOrMobile: formData.emailOrMobile,
+            password: formData.password,
+            birthdate: formData.birthdate,
+            gender: formData.gender
+        };
 
-        // Send registration to the backend
-        axios
-            .post('https://localhost:3000/register', formData)
-            .then((response) => {
-                console.log(response.data);
-                setFormErrors([]); // Clears previous error messages
-                setFormData({
-                        firstname: '',
-                        lastname: '',
-                        username: '', 
-                        emailOrMobile: '',
-                        password: '', 
-                        birthdate: '', 
-                        gender: '', 
-                });
-                // Redirect or show success message
-            })
-            .catch((error) => {
-                console.error('Registration failed:', error);
-                // Display error message to the user
-                setFormErrors({ registration: 'Registration failed. Please try again later.'});
+        try {
+            const response = await fetch('http://localhost:8080/addCollector', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(collector),
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+            alert('User created successfully!');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to create user');
         }
-    };
+    };   
 
     return (
         <div className="page-wrapper">
@@ -91,8 +71,7 @@ function Register() {
                             value={formData.firstname}
                             onChange={handleChange}
                         />
-                        {formErrors.firstname && <p className="error-message">
-                            {formErrors.firstname}</p>}
+                        {formErrors.firstname && <p className="error-message">{formErrors.firstname}</p>}
                         <input
                             type="text"
                             name="lastname"
@@ -100,8 +79,7 @@ function Register() {
                             value={formData.lastname}
                             onChange={handleChange}
                         />
-                        {formErrors.lastname && <p className="error-message">
-                            {formErrors.lastname}</p>}
+                        {formErrors.lastname && <p className="error-message">{formErrors.lastname}</p>}
                     </div>
                     <input
                         type="text"
@@ -110,8 +88,7 @@ function Register() {
                         value={formData.username}
                         onChange={handleChange}
                     />
-                    {formErrors.username && <p className="error-message">
-                            {formErrors.username}</p>}
+                    {formErrors.username && <p className="error-message">{formErrors.username}</p>}
                     <input
                         type="text"
                         name="emailOrMobile"
@@ -119,8 +96,7 @@ function Register() {
                         value={formData.emailOrMobile}
                         onChange={handleChange}
                     />
-                    {formErrors.emailOrMobile && <p className="error-message">
-                            {formErrors.emailOrMobile}</p>}
+                    {formErrors.emailOrMobile && <p className="error-message">{formErrors.emailOrMobile}</p>}
                     <input
                         type="password"
                         name="password"
@@ -128,8 +104,7 @@ function Register() {
                         value={formData.password}
                         onChange={handleChange}
                     />
-                    {formErrors.password && <p className="error-message">
-                            {formErrors.password}</p>}
+                    {formErrors.password && <p className="error-message">{formErrors.password}</p>}
                     <label htmlFor="birthdate">Date of Birth</label>
                     <input
                         type="date"
@@ -137,8 +112,7 @@ function Register() {
                         value={formData.birthdate}
                         onChange={handleChange}
                     />
-                    {formErrors.birthdate && <p className="error-message">
-                            {formErrors.birthdate}</p>}
+                    {formErrors.birthdate && <p className="error-message">{formErrors.birthdate}</p>}
                     <label htmlFor="gender">Gender</label>
                     <select name="gender" value={formData.gender} onChange={handleChange}>
                         <option value="">Select Gender</option>
@@ -146,8 +120,7 @@ function Register() {
                         <option value="Female">Female</option>
                         <option value="other">Other</option>
                     </select>
-                    {formErrors.gender && <p className="error-message">
-                            {formErrors.gender}</p>}
+                    {formErrors.gender && <p className="error-message">{formErrors.gender}</p>}
                     <button type="submit">Sign Up</button>
                     {/* Already have an account link */}
                     <div className="have-account">
