@@ -5,7 +5,7 @@ import './home.css';
 
 function Home() {
     const [credentials, setCredentials] = useState({
-        username: localStorage.getItem('username') || '',
+        email: localStorage.getItem('email') || '',
         password: ''
     });
 
@@ -14,22 +14,38 @@ function Home() {
     useEffect(() => {
         localStorage.setItem('loggedIn', loggedIn);
         if (loggedIn) {
-            localStorage.setItem('username', credentials.username);
+            localStorage.setItem('email', credentials.email);
         } else {
-            localStorage.removeItem('username');
+            localStorage.removeItem('email');
         }
-    }, [loggedIn, credentials.username]);
+    }, [loggedIn, credentials.email]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value });
     };
 
-    const handleLogin = () => {
-        setLoggedIn(true);
-        alert(`Log in with Username: ${credentials.username} and Password: ${credentials.password}`);
+    const handleLogin = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ email: credentials.email, password: credentials.password }), // Change here if backend expects an email
+            });
+    
+            const data = await response.json();
+            if (response.ok) {
+                setLoggedIn(true);
+                alert(data.message);
+            } else {
+                throw new Error(data.message || 'Failed to log in');
+            }
+        } catch (error) {
+            alert(error.message); 
+        }
     };
-
+    
+    
     const handleLogout = () => {
         setLoggedIn(false);
         window.location.href = "/";
@@ -69,8 +85,8 @@ function Home() {
                             <input
                                 type="text"
                                 placeholder="Email"
-                                name="username"
-                                value={credentials.username}
+                                name="email"
+                                value={credentials.email}
                                 onChange={handleInputChange}
                             />
                             <input

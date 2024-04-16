@@ -7,7 +7,7 @@ function Register() {
         firstname: '',
         lastname: '',
         username: '',
-        emailOrMobile: '',
+        email: '',
         password: '',
         birthdate: '',
         gender: '',
@@ -54,7 +54,7 @@ function Register() {
                         {renderInput('lastname', 'text', 'Last Name')}
                     </div>
                     {renderInput('username', 'text', 'Username')}
-                    {renderInput('emailOrMobile', 'text', 'Mobile number or email')}
+                    {renderInput('email', 'text', 'Mobile number or email')}
                     {renderInput('password', 'password', 'New password')}
                     {renderInput('birthdate', 'date', '')}
                     <label htmlFor="gender">Gender</label>

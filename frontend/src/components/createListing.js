@@ -105,14 +105,14 @@ function CreateListing() {
                     <h3>Required</h3>
                     <input type="text" placeholder="Title" className="input-box" value={formState.title} onChange={handleChange('title')} />
                     <input type="number" placeholder="Price" className="input-box" value={formState.price} onChange={handleChange('price')} />
-                    <textarea placeholder="Description" className="input-box" value={formState.description} onChange={handleChange('description')}></textarea>
+                    <textarea placeholder="Description" className="input-box" value={formState.description} onChange={handleChange('description')} />
                     <button type="submit" className="button-style" onClick={handleSubmit}>Create Listing</button>
                 </aside>
                 <section id="background">
                     <div className="preview-box">
                         <h2>Preview</h2>
                         <div className="preview-container" ref={refs.previewContainer}>
-                            <div className="media-preview">
+                            <div className="media-preview" style={{ position: 'relative' }}>
                                 {formState.media.map((item, index) => index === currentImageIndex && (
                                     item.type === 'image' ? (
                                         <img key={index} src={item.url} alt="Upload" className="media-item" />
@@ -120,15 +120,15 @@ function CreateListing() {
                                         <video key={index} src={item.url} controls className="media-item" />
                                     )
                                 ))}
-                                <div className="image-navigation">
+                                <div className="image-navigation" style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                                     {formState.media.length > 1 && (
                                         <>
-                                            <button onClick={navigateMedia(-1)}>&lt;</button>
-                                            <button onClick={navigateMedia(1)}>&gt;</button>
+                                            <button onClick={navigateMedia(-1)} style={{ position: 'absolute', left: '10px' }}>&lt;</button>
+                                            <button onClick={navigateMedia(1)} style={{ position: 'absolute', right: '10px' }}>&gt;</button>
                                         </>
                                     )}
                                     {formState.media.length > 0 && (
-                                        <button className="remove-button" onClick={handleRemoveImage}>X</button>
+                                        <button className="remove-button" style={{ position: 'absolute', right: '10px', top: '-335px' }} onClick={handleRemoveImage}>X</button>
                                     )}
                                 </div>
                             </div>

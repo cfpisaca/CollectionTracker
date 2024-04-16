@@ -14,7 +14,7 @@ public class Collector {
     private String firstname;
     private String lastname;
     private String username;
-    private String emailOrMobile;
+    private String email;
     private String password;
     private String birthdate;
     private String gender;
