@@ -1,9 +1,8 @@
-// User.js
 import React, { useState } from 'react';
 import profileIcon from '../icons/profileIcon.webp';
 import searchIcon from '../icons/searchIcon.svg';
 import arrowIcon from '../icons/arrowIcon.png';
-import './user.css'; // Import CSS file
+import './user.css'; 
 
 function User() {
     const [showProfileModal, setShowProfileModal] = useState(false);
