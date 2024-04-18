@@ -86,8 +86,7 @@ function Register() {
             localStorage.setItem('username', formData.username); 
 
             alert('User created successfully!');
-            navigate('/'); 
-        }
+            navigate('/');
     };
 
     const renderInput = (name, type, placeholder) => (
@@ -128,5 +127,6 @@ function Register() {
             </div>
         </div>
     );
+}
 
 export default Register;
