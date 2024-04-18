@@ -87,8 +87,6 @@ function Register() {
 
             alert('User created successfully!');
             navigate('/'); 
-        } catch (error) {
-            alert(error.message);
         }
     };
 
@@ -130,6 +128,5 @@ function Register() {
             </div>
         </div>
     );
-}
 
 export default Register;
