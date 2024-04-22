@@ -10,22 +10,25 @@ function Register() {
         username: '',
         email: '',
         password: '',
+        confirmPassword: '',
         birthdate: '',
         gender: '',
     });
 
-    const [formErrors, setFormErrors] = useState({});
+    const [formErrors, setFormErrors] = useState({
+        firstname: '',
+        lastname: '',
+        username: '',
+        email: '',
+        password: '',
+        birthdate: '',
+        gender: '',
+    });
 
     const isValidEmail = (email) => {
         // Regular expression to validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
-    const isValidPhoneNumber = (phoneNumber) => {
-        // Regular expression to validate phone number format
-        const phoneRegex = /^[0-9]{10}$/;
-        return phoneRegex.test(phoneNumber);
+        return emailRegex.test(email) ? '' : 'Invalid email address';
     };
 
     const validatePassword = (password) => {
@@ -53,14 +56,21 @@ function Register() {
         const { name, value } = e.target;
         let errorMessage = '';
 
-        // Validate email format
-        if (name === 'emailOrMobile' && value.trim() !== '') {
-            if (!isValidEmail(value) && !isValidPhoneNumber(value)) {
-                errorMessage = 'Invalid email address or phone number';
+        // Confirm Password
+        if (name === 'confirmPassword') {
+            if (value !== formData.password) {
+                errorMessage = 'Passwords do not match';
             }
         }
 
-        // Validate password format
+        // Validate email format
+        if (name === 'emailOrMobile' && value.trim() !== '') {
+            if (!isValidEmail(value)) {
+                errorMessage = isValidEmail(value);
+            }
+        }
+
+        // Validate password
         if (name === 'password' && value.trim() !== '') {
             errorMessage = validatePassword(value);
         }
@@ -71,6 +81,18 @@ function Register() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        // Check if any field is empty
+        const emptyFields = Object.keys(formData).filter(key => formData[key] === '');
+        if (emptyFields.length > 0) {
+            const errors = [];
+            emptyFields.forEach(field => {
+                errors[field] = field.charAt(0).toUpperCase() + field.slice(1) + ' is required';
+            });
+            setFormErrors(errors);
+            return;
+        }
+        
         const response = await fetch('http://localhost:8080/addCollector', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -110,6 +132,7 @@ function Register() {
                     {renderInput('username', 'text', 'Username')}
                     {renderInput('email', 'text', 'Email')}
                     {renderInput('password', 'password', 'New password')}
+                    {renderInput('confirmPassword', 'password', 'Confirm Password')}
                     {renderInput('birthdate', 'date', '')}
                     <label htmlFor="gender">Gender</label>
                     <select name="gender" value={formData.gender} onChange={handleChange}>
