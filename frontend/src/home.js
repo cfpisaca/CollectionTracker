@@ -19,10 +19,10 @@ function Home() {
         localStorage.setItem('loggedIn', loggedIn);
         if (loggedIn) {
             localStorage.setItem('email', credentials.email);
-            fetchListings();
         } else {
             localStorage.removeItem('email');
         }
+        fetchListings();  
     }, [loggedIn, credentials.email]);
 
     const fetchListings = async () => {
@@ -82,8 +82,12 @@ function Home() {
     };
 
     const handleListingClick = (listing) => {
-        setSelectedListing(listing);
-        setShowPreviewModal(true);
+        if (loggedIn) {
+            setSelectedListing(listing);
+            setShowPreviewModal(true);
+        } else {
+            window.location.href = "/register";
+        }
     };
 
     const handleCloseModal = () => {
