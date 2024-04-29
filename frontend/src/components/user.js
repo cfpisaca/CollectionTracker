@@ -4,7 +4,7 @@ import profileIcon from '../icons/profileIcon.webp';
 import searchIcon from '../icons/searchIcon.svg';
 import arrowIcon from '../icons/arrowIcon.png';
 import { fetchListings } from '../services/api'; 
-import PreviewBox from './PreviewBox'; 
+import PreviewBox from './previewBox';
 
 function User() {
     const [listings, setListings] = useState([]);
@@ -35,7 +35,7 @@ function User() {
     };
 
     const handleGoToHomePage = () => {
-        window.location.href = "/"; 
+        window.location.href = "/";
     };
 
     return (
@@ -81,13 +81,14 @@ function User() {
                             <input type="text" placeholder="Search listings" className="search-input" />
                             <img src={searchIcon} className="search-icon" alt="Search Icon" />
                         </div>
-                        {listings.map(listing => (
-                            <div key={listing.id} className="listing-entry">
-                                <button onClick={() => handleListingClick(listing)}>{listing.title}</button>
+                    </div>
+                    {listings.map(listing => (
+                            <div key={listing.id} className="listing-entry" onClick={() => handleListingClick(listing)}>
+                                <button>{listing.title}</button>
                             </div>
                         ))}
-                    </div>
                 </section>
+                
             </main>
 
             {showProfileModal && (

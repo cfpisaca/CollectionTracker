@@ -124,7 +124,7 @@ function CreateListing() {
                     <div className="buttons-container">
                         <input type="file" ref={refs.photo} style={{ display: 'none' }} accept="image/*" onChange={handleMediaChange} />
                         <button className="button-style" onClick={() => refs.photo.current.click()}>
-                            Add Photos
+                            Add Photo
                         </button>
                     </div>
                     <h3>Required</h3>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import profileIcon from './icons/profileIcon.webp';
 import searchIcon from './icons/searchIcon.svg';
 import './home.css';
+import PreviewBox from './components/previewBox';
 
 function Home() {
     const [credentials, setCredentials] = useState({
@@ -9,16 +10,26 @@ function Home() {
         password: ''
     });
 
+    const [listings, setListings] = useState([]); 
     const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') === 'true');
+    const [selectedListing, setSelectedListing] = useState(null);
+    const [showPreviewModal, setShowPreviewModal] = useState(false);
 
     useEffect(() => {
         localStorage.setItem('loggedIn', loggedIn);
         if (loggedIn) {
             localStorage.setItem('email', credentials.email);
+            fetchListings();
         } else {
             localStorage.removeItem('email');
         }
     }, [loggedIn, credentials.email]);
+
+    const fetchListings = async () => {
+        const response = await fetch('http://localhost:8080/listings');
+        const data = await response.json();
+        setListings(data);
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -45,7 +56,6 @@ function Home() {
         }
     };
     
-    
     const handleLogout = () => {
         setLoggedIn(false);
         window.location.href = "/";
@@ -69,6 +79,15 @@ function Home() {
         } else {
             window.location.href = "/register";
         }
+    };
+
+    const handleListingClick = (listing) => {
+        setSelectedListing(listing);
+        setShowPreviewModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowPreviewModal(false);
     };
 
     return (
@@ -129,8 +148,21 @@ function Home() {
                 </aside>
                 <section id="listings">
                     <h2>Listings</h2>
+                    {listings.map(listing => (
+                        <div key={listing.id} className="listing-entry" onClick={() => handleListingClick(listing)}>
+                            <button>{listing.title}</button>
+                        </div>
+                    ))}
                 </section>
             </main>
+            {showPreviewModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <span className="close-modal" onClick={handleCloseModal}>×</span>
+                        <PreviewBox listing={selectedListing} onRemoveMedia={() => setSelectedListing({...selectedListing, media: null})} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -277,6 +277,34 @@ body, h1, h2 {
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); 
 }
 
+.listings-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.listing-entry {
+  width: 100%; 
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.listing-entry button {
+  background-color: #fff;
+  color: #000;
+  text-align: left;
+  width: 100%; 
+  padding: 10px;
+  border: none;
+  border-radius: 5px; 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+  cursor: pointer; 
+}
+
+.listing-entry button:hover {
+  background-color: #f8f8f8; 
+}
+
+
 @media only screen and (max-width: 1300px) {
   .sidebar2-section {
     display: none;
