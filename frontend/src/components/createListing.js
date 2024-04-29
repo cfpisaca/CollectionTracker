@@ -40,6 +40,7 @@ function CreateListing() {
         if (file && file.type.startsWith('image')) {
             const newMediaItem = {
                 type: 'image',
+                file: file,
                 url: URL.createObjectURL(file),
                 aspectRatio: 16 / 12,
             };
@@ -54,25 +55,46 @@ function CreateListing() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const listing = { id: Date.now(), ...formState };
-
+    
         try {
-            const response = await fetch('http://localhost:8080/addListing', {
+            const id = Date.now();
+    
+            if (formState.media) {
+                const mediaFormData = new FormData();
+                mediaFormData.append('id', id); 
+                mediaFormData.append('media', formState.media.file);
+    
+                const mediaResponse = await fetch('http://localhost:8080/media', {
+                    method: 'POST',
+                    body: mediaFormData,
+                });
+    
+                if (!mediaResponse.ok) throw new Error(`Failed to upload media! status: ${mediaResponse.status}`);
+            }
+    
+            const listingData = {
+                id: id,
+                title: formState.title,
+                price: formState.price,
+                description: formState.description
+            };
+    
+            const listingResponse = await fetch('http://localhost:8080/addListing', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(listing),
+                body: JSON.stringify(listingData),
             });
-
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
+    
+            if (!listingResponse.ok) throw new Error(`Failed to create listing! status: ${listingResponse.status}`);
+    
             alert('Listing created successfully!');
-            console.log('Success:', data);
+            console.log('Listing created successfully!');
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to create listing');
         }
     };
-
+    
     return (
         <div className="CreateListing">
             <header className="header">
