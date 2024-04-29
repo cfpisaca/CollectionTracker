@@ -1,4 +1,3 @@
-// Inside ListingController
 package com.postgresql.collectionTracker.controller;
 
 import com.postgresql.collectionTracker.entity.Listing;
