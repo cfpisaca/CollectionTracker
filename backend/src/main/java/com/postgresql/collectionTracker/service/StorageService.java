@@ -9,7 +9,6 @@ import com.postgresql.collectionTracker.repository.StorageRepository;
 import com.postgresql.collectionTracker.util.MediaUtils;
 
 import jakarta.transaction.Transactional;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -20,9 +19,9 @@ public class StorageService {
     private StorageRepository repository;
 
     @Transactional
-    public String uploadMedia(MultipartFile file) throws IOException {
-
+    public String uploadMedia(Long id, MultipartFile file) throws IOException {
         repository.save(MediaData.builder()
+                .id(id)
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .mediaData(MediaUtils.compressMedia(file.getBytes())).build());

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './createListing.css';
 
 function CreateListing() {
-    const [formState, setFormState] = useState({ title: '', price: '', description: '', media: null });
+    const [formState, setFormState] = useState({ id: null, title: '', price: '', description: '', media: null });
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const refs = {
         photo: useRef(null),
@@ -38,14 +38,16 @@ function CreateListing() {
     const handleMediaChange = (event) => {
         const file = event.target.files[0];
         if (file && file.type.startsWith('image')) {
+            const id = Date.now();
             const newMediaItem = {
+                id: id,
                 type: 'image',
                 file: file,
                 url: URL.createObjectURL(file),
                 aspectRatio: 16 / 12,
             };
 
-            setFormState(prev => ({ ...prev, media: newMediaItem }));
+            setFormState(prev => ({ ...prev, id: id, media: newMediaItem })); 
         }
     };
 
@@ -55,38 +57,36 @@ function CreateListing() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         try {
-            const id = Date.now();
-    
+            const listingResponse = await fetch('http://localhost:8080/addListing', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: formState.title,
+                    price: formState.price,
+                    description: formState.description
+                }),
+            });
+
+            if (!listingResponse.ok) throw new Error(`Failed to create listing! status: ${listingResponse.status}`);
+
+            const listingData = await listingResponse.json();
+            const id = listingData.id; 
+
             if (formState.media) {
                 const mediaFormData = new FormData();
-                mediaFormData.append('id', id); 
+                mediaFormData.append('id', id);
                 mediaFormData.append('media', formState.media.file);
-    
+
                 const mediaResponse = await fetch('http://localhost:8080/media', {
                     method: 'POST',
                     body: mediaFormData,
                 });
-    
+
                 if (!mediaResponse.ok) throw new Error(`Failed to upload media! status: ${mediaResponse.status}`);
             }
-    
-            const listingData = {
-                id: id,
-                title: formState.title,
-                price: formState.price,
-                description: formState.description
-            };
-    
-            const listingResponse = await fetch('http://localhost:8080/addListing', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(listingData),
-            });
-    
-            if (!listingResponse.ok) throw new Error(`Failed to create listing! status: ${listingResponse.status}`);
-    
+
             alert('Listing created successfully!');
             console.log('Listing created successfully!');
         } catch (error) {
@@ -94,7 +94,7 @@ function CreateListing() {
             alert('Failed to create listing');
         }
     };
-    
+
     return (
         <div className="CreateListing">
             <header className="header">
