@@ -57,7 +57,17 @@ function CreateListing() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
+        if (!formState.media) {
+            alert('Please attach a photo to create a listing.');
+            return;
+        }
+    
+        if (!formState.title || !formState.price || !formState.description) {
+            alert('Please provide a title, price, and description to create a listing.');
+            return;
+        }
+    
         try {
             const listingResponse = await fetch('http://localhost:8080/addListing', {
                 method: 'POST',
@@ -68,33 +78,40 @@ function CreateListing() {
                     description: formState.description
                 }),
             });
-
-            if (!listingResponse.ok) throw new Error(`Failed to create listing! status: ${listingResponse.status}`);
-
+    
+            if (!listingResponse.ok) {
+                throw new Error(`Failed to create listing! status: ${listingResponse.status}`);
+            }
+    
             const listingData = await listingResponse.json();
             const id = listingData.id; 
-
+    
             if (formState.media) {
                 const mediaFormData = new FormData();
                 mediaFormData.append('id', id);
                 mediaFormData.append('media', formState.media.file);
-
+    
                 const mediaResponse = await fetch('http://localhost:8080/media', {
                     method: 'POST',
                     body: mediaFormData,
                 });
-
-                if (!mediaResponse.ok) throw new Error(`Failed to upload media! status: ${mediaResponse.status}`);
+    
+                if (!mediaResponse.ok) {
+                    throw new Error(`Failed to upload media! status: ${mediaResponse.status}`);
+                }
             }
-
+    
             alert('Listing created successfully!');
             console.log('Listing created successfully!');
+            
+            window.location.href = "/user";
+    
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to create listing');
         }
     };
-
+    
     return (
         <div className="CreateListing">
             <header className="header">

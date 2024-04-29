@@ -3,6 +3,8 @@ package com.postgresql.collectionTracker.controller;
 import com.postgresql.collectionTracker.entity.Listing;
 import com.postgresql.collectionTracker.repository.ListingRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,4 +22,10 @@ public class ListingController {
         listing.setId(++lastId);
         return repo.save(listing);
     }
+
+    @GetMapping("/listings")
+    public List<Listing> getAllListings() {
+        return repo.findAll();
+    }
+
 }
