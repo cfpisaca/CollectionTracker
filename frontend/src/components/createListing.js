@@ -2,18 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import './createListing.css';
 
 function CreateListing() {
-    const [formState, setFormState] = useState({ title: '', price: '', description: '', media: [] });
+    const [formState, setFormState] = useState({ title: '', price: '', description: '', media: null });
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const refs = {
         photo: useRef(null),
-        video: useRef(null),
         previewContainer: useRef(null)
     };
 
     useEffect(() => {
         const updatePreviewSize = () => {
             const { previewContainer } = refs;
-            const aspectRatio = formState.media.length > 0 ? 16 / 12 : 16 / 12;
+            const aspectRatio = 16 / 12;
             const width = previewContainer.current.offsetWidth;
             previewContainer.current.style.height = `${width / aspectRatio}px`;
         };
@@ -21,7 +20,7 @@ function CreateListing() {
         updatePreviewSize();
         window.addEventListener('resize', updatePreviewSize);
         return () => window.removeEventListener('resize', updatePreviewSize);
-    }, [formState.media, currentImageIndex]);
+    }, [formState.media]);
 
     const handleChange = (key) => (e) => {
         if (key === 'price') {
@@ -36,30 +35,21 @@ function CreateListing() {
         }
     };
 
-    const handleMediaChange = (type) => (event) => {
-        const files = event.target.files;
-        const newMediaItems = Array.from(files).map(file => ({
-            type: file.type.startsWith('image') ? 'image' : 'video',
-            url: URL.createObjectURL(file),
-            aspectRatio: 16 / 12,
-        }));
+    const handleMediaChange = (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image')) {
+            const newMediaItem = {
+                type: 'image',
+                url: URL.createObjectURL(file),
+                aspectRatio: 16 / 12,
+            };
 
-        setFormState(prev => {
-            const updatedMedia = prev.media.concat(newMediaItems);
-            return updatedMedia.length <= 10 ? { ...prev, media: updatedMedia } : prev;
-        });
-    };
-
-    const navigateMedia = (direction) => () => {
-        setCurrentImageIndex(prev => (prev + direction + formState.media.length) % formState.media.length);
+            setFormState(prev => ({ ...prev, media: newMediaItem }));
+        }
     };
 
     const handleRemoveImage = () => {
-        setFormState(prev => {
-            const updatedMedia = prev.media.filter((_, i) => i !== currentImageIndex);
-            return { ...prev, media: updatedMedia };
-        });
-        setCurrentImageIndex(0);
+        setFormState(prev => ({ ...prev, media: null }));
     };
 
     const handleSubmit = async (event) => {
@@ -93,14 +83,10 @@ function CreateListing() {
                 <aside className="sidebar">
                     <h2>Item for Sale</h2>
                     <div className="buttons-container">
-                        {['photo', 'video'].map(type => (
-                            <React.Fragment key={type}>
-                                <input type="file" multiple ref={refs[type]} style={{ display: 'none' }} accept={type === 'photo' ? "image/*" : "video/*"} onChange={handleMediaChange(type)} />
-                                <button className="button-style" onClick={() => refs[type].current.click()}>
-                                    Add {type === 'photo' ? 'Photos' : 'Videos'}
-                                </button>
-                            </React.Fragment>
-                        ))}
+                        <input type="file" ref={refs.photo} style={{ display: 'none' }} accept="image/*" onChange={handleMediaChange} />
+                        <button className="button-style" onClick={() => refs.photo.current.click()}>
+                            Add Photos
+                        </button>
                     </div>
                     <h3>Required</h3>
                     <input type="text" placeholder="Title" className="input-box" value={formState.title} onChange={handleChange('title')} />
@@ -113,24 +99,12 @@ function CreateListing() {
                         <h2>Preview</h2>
                         <div className="preview-container" ref={refs.previewContainer}>
                             <div className="media-preview" style={{ position: 'relative' }}>
-                                {formState.media.map((item, index) => index === currentImageIndex && (
-                                    item.type === 'image' ? (
-                                        <img key={index} src={item.url} alt="Upload" className="media-item" />
-                                    ) : (
-                                        <video key={index} src={item.url} controls className="media-item" />
-                                    )
-                                ))}
-                                <div className="image-navigation" style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                                    {formState.media.length > 1 && (
-                                        <>
-                                            <button onClick={navigateMedia(-1)} style={{ position: 'absolute', left: '10px' }}>&lt;</button>
-                                            <button onClick={navigateMedia(1)} style={{ position: 'absolute', right: '10px' }}>&gt;</button>
-                                        </>
-                                    )}
-                                    {formState.media.length > 0 && (
-                                        <button className="remove-button" style={{ position: 'absolute', right: '10px', top: '-335px' }} onClick={handleRemoveImage}>X</button>
-                                    )}
-                                </div>
+                                {formState.media && (
+                                    <img src={formState.media.url} alt="Upload" className="media-item" />
+                                )}
+                                {formState.media && (
+                                    <button className="remove-button" style={{ position: 'absolute', right: '10px', top: '-335px' }} onClick={handleRemoveImage}>X</button>
+                                )}
                             </div>
                             <div className="details-preview">
                                 <h3>{formState.title || 'Title'}</h3>
